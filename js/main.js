@@ -313,20 +313,119 @@ function initJoinForm() {
   const form = document.querySelector(".join-form");
   const input = form?.querySelector('input[type="email"]');
   const status = document.querySelector(".join-success");
+  const sendButton = form?.querySelector(".prototype-send-btn");
+  const chapter = form?.closest(".prototype-cta-section");
   if (!form || !input || !status) return;
 
-  form.addEventListener("submit", (event) => {
+  let launchResetTimer = 0;
+  let flyer = null;
+
+  const ensureFlyer = () => {
+    if (!(chapter instanceof HTMLElement)) return null;
+    if (flyer instanceof HTMLElement) return flyer;
+    flyer = chapter.querySelector(".prototype-flyer");
+    if (flyer instanceof HTMLElement) return flyer;
+
+    const created = document.createElement("span");
+    created.className = "prototype-flyer";
+    created.setAttribute("aria-hidden", "true");
+    created.innerHTML = `
+      <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+        <path d="M21.5 3.5L10.7 14.3M21.5 3.5L14.9 21.2L10.7 14.3M21.5 3.5L3.8 10.1L10.7 14.3"></path>
+      </svg>
+    `;
+    chapter.appendChild(created);
+    flyer = created;
+    return flyer;
+  };
+
+  const launchPlane = () => {
+    if (!(sendButton instanceof HTMLButtonElement)) return;
+    if (!(chapter instanceof HTMLElement)) return;
+
+    const activeFlyer = ensureFlyer();
+    if (!(activeFlyer instanceof HTMLElement)) return;
+
+    const chapterRect = chapter.getBoundingClientRect();
+    const buttonRect = sendButton.getBoundingClientRect();
+    const startX = buttonRect.left - chapterRect.left + buttonRect.width / 2;
+    const startY = buttonRect.top - chapterRect.top + buttonRect.height / 2;
+    const exitX = Math.max(chapterRect.width - startX + 220, 560);
+
+    activeFlyer.style.left = `${startX}px`;
+    activeFlyer.style.top = `${startY}px`;
+    activeFlyer.style.setProperty("--fly-exit-x", `${exitX}px`);
+
+    if (launchResetTimer) {
+      window.clearTimeout(launchResetTimer);
+      launchResetTimer = 0;
+    }
+
+    sendButton.classList.add("is-sending");
+    activeFlyer.classList.remove("is-launching");
+    void activeFlyer.offsetWidth;
+    activeFlyer.classList.add("is-launching");
+
+    launchResetTimer = window.setTimeout(() => {
+      activeFlyer.classList.remove("is-launching");
+      sendButton.classList.remove("is-sending");
+      launchResetTimer = 0;
+    }, 5000);
+  };
+
+  const googleFormAction = form.dataset.googleFormAction?.trim() || "";
+  const googleEntryEmail = form.dataset.googleEntryEmail?.trim() || "";
+  const hasGoogleFormConfig =
+    googleFormAction.startsWith("https://docs.google.com/forms/") &&
+    !googleFormAction.includes("YOUR_FORM_ID") &&
+    googleEntryEmail.startsWith("entry.") &&
+    !googleEntryEmail.includes("YOUR_EMAIL_FIELD_ID");
+
+  const setStatus = (message, tone) => {
+    status.textContent = message;
+    status.classList.remove("is-success", "is-error");
+    if (tone === "success") {
+      status.classList.add("is-success");
+    } else if (tone === "error") {
+      status.classList.add("is-error");
+    }
+    status.classList.add("show");
+  };
+
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     if (!input.checkValidity()) {
-      status.textContent = "Please enter a valid email address.";
-      status.classList.add("show");
+      setStatus("Please enter a valid email address.", "error");
       return;
     }
 
-    status.textContent = "You are on the list. We will keep you posted.";
-    status.classList.add("show");
-    form.reset();
+    const email = input.value.trim();
+
+    try {
+      if (!hasGoogleFormConfig) {
+        setStatus("Waitlist form is not configured yet.", "error");
+        return;
+      }
+
+      const payload = new URLSearchParams();
+      payload.set(googleEntryEmail, email);
+
+      await fetch(googleFormAction, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        },
+        body: payload.toString(),
+      });
+
+      setStatus("You are on the list. We will keep you posted.", "success");
+      form.reset();
+      launchPlane();
+    } catch {
+      setStatus("Could not submit right now. Please try again.", "error");
+    }
   });
 }
 
