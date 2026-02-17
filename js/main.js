@@ -316,11 +316,9 @@ function initJoinForm() {
   const sendButton = form?.querySelector(".prototype-send-btn");
   if (!form || !input || !status) return;
 
-  const syncSendButtonState = () => {
+  const setSubmittedGlow = (submitted) => {
     if (!(sendButton instanceof HTMLButtonElement)) return;
-    const hasTypedEmail = input.value.trim().length > 0;
-    const hasValidEmail = input.checkValidity();
-    sendButton.classList.toggle("is-armed", hasTypedEmail && hasValidEmail);
+    sendButton.classList.toggle("is-submitted", submitted);
   };
 
   const googleFormAction = form.dataset.googleFormAction?.trim() || "";
@@ -342,14 +340,15 @@ function initJoinForm() {
     status.classList.add("show");
   };
 
-  input.addEventListener("input", syncSendButtonState);
-  input.addEventListener("blur", syncSendButtonState);
-  syncSendButtonState();
+  input.addEventListener("input", () => {
+    setSubmittedGlow(false);
+  });
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     if (!input.checkValidity()) {
+      setSubmittedGlow(false);
       setStatus("Please enter a valid email address.", "error");
       return;
     }
@@ -358,6 +357,7 @@ function initJoinForm() {
 
     try {
       if (!hasGoogleFormConfig) {
+        setSubmittedGlow(false);
         setStatus("Waitlist form is not configured yet.", "error");
         return;
       }
@@ -375,9 +375,10 @@ function initJoinForm() {
       });
 
       setStatus("You are on the list. We will keep you posted.", "success");
+      setSubmittedGlow(true);
       form.reset();
-      syncSendButtonState();
     } catch {
+      setSubmittedGlow(false);
       setStatus("Could not submit right now. Please try again.", "error");
     }
   });
