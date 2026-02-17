@@ -314,63 +314,13 @@ function initJoinForm() {
   const input = form?.querySelector('input[type="email"]');
   const status = document.querySelector(".join-success");
   const sendButton = form?.querySelector(".prototype-send-btn");
-  const chapter = form?.closest(".prototype-cta-section");
   if (!form || !input || !status) return;
 
-  let launchResetTimer = 0;
-  let flyer = null;
-
-  const ensureFlyer = () => {
-    if (!(chapter instanceof HTMLElement)) return null;
-    if (flyer instanceof HTMLElement) return flyer;
-    flyer = chapter.querySelector(".prototype-flyer");
-    if (flyer instanceof HTMLElement) return flyer;
-
-    const created = document.createElement("span");
-    created.className = "prototype-flyer";
-    created.setAttribute("aria-hidden", "true");
-    created.innerHTML = `
-      <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-        <path d="M21.5 3.5L10.7 14.3M21.5 3.5L14.9 21.2L10.7 14.3M21.5 3.5L3.8 10.1L10.7 14.3"></path>
-      </svg>
-    `;
-    chapter.appendChild(created);
-    flyer = created;
-    return flyer;
-  };
-
-  const launchPlane = () => {
+  const syncSendButtonState = () => {
     if (!(sendButton instanceof HTMLButtonElement)) return;
-    if (!(chapter instanceof HTMLElement)) return;
-
-    const activeFlyer = ensureFlyer();
-    if (!(activeFlyer instanceof HTMLElement)) return;
-
-    const chapterRect = chapter.getBoundingClientRect();
-    const buttonRect = sendButton.getBoundingClientRect();
-    const startX = buttonRect.left - chapterRect.left + buttonRect.width / 2;
-    const startY = buttonRect.top - chapterRect.top + buttonRect.height / 2;
-    const exitX = Math.max(chapterRect.width - startX + 220, 560);
-
-    activeFlyer.style.left = `${startX}px`;
-    activeFlyer.style.top = `${startY}px`;
-    activeFlyer.style.setProperty("--fly-exit-x", `${exitX}px`);
-
-    if (launchResetTimer) {
-      window.clearTimeout(launchResetTimer);
-      launchResetTimer = 0;
-    }
-
-    sendButton.classList.add("is-sending");
-    activeFlyer.classList.remove("is-launching");
-    void activeFlyer.offsetWidth;
-    activeFlyer.classList.add("is-launching");
-
-    launchResetTimer = window.setTimeout(() => {
-      activeFlyer.classList.remove("is-launching");
-      sendButton.classList.remove("is-sending");
-      launchResetTimer = 0;
-    }, 5000);
+    const hasTypedEmail = input.value.trim().length > 0;
+    const hasValidEmail = input.checkValidity();
+    sendButton.classList.toggle("is-armed", hasTypedEmail && hasValidEmail);
   };
 
   const googleFormAction = form.dataset.googleFormAction?.trim() || "";
@@ -391,6 +341,10 @@ function initJoinForm() {
     }
     status.classList.add("show");
   };
+
+  input.addEventListener("input", syncSendButtonState);
+  input.addEventListener("blur", syncSendButtonState);
+  syncSendButtonState();
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -422,7 +376,7 @@ function initJoinForm() {
 
       setStatus("You are on the list. We will keep you posted.", "success");
       form.reset();
-      launchPlane();
+      syncSendButtonState();
     } catch {
       setStatus("Could not submit right now. Please try again.", "error");
     }
