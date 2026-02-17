@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pigeon Manifesto — technology that respects attention.">
+  <title>Pigeon Manifesto</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <div class="panel">
+      <nav class="panel-utility-links" aria-label="Panel links">
+        <a href="#waitlist" class="waitlist-link">waitlist</a>
+        <a href="letter.html">letter ↗</a>
+      </nav>
+      <div class="manifesto-scroll" id="manifestoScroll">
+        <section class="chapter logon-intro" data-chapter>
+          <p class="intro-line type-line deliberate" data-text="The internet used to be a destination.">The internet used to be a destination.</p>
+          <p class="logon-word">LOG ON</p>
+          <button type="button" class="chapter-cta" aria-label="Press Enter to continue">
+            <span class="logon-key">enter</span>
+            <span class="logon-cta-text">to Continue</span>
+          </button>
+        </section>
+
+        <section class="chapter split neutral-surface reflection-section" data-chapter>
+          <div>
+            <p class="type-line line accent" data-text="Technology was fun and made us curious."></p>
+          </div>
+          <aside class="figure reflection-figure" aria-label="Interactive drawing canvas">
+            <span class="perched-pigeon perched-pigeon-paint" aria-hidden="true">
+              <i class="pp-body"></i><i class="pp-wing"></i><i class="pp-tail"></i><i class="pp-neck"></i><i class="pp-head"></i><i class="pp-eye"></i><i class="pp-beak"></i><i class="pp-legs"></i>
+            </span>
+            <div class="reflection-paint demo-window">
+              <div class="paint-titlebar demo-titlebar">
+                <span class="paint-title">Untitled - Paint</span>
+                <span class="paint-window-controls" aria-hidden="true"><i></i><i></i><i></i></span>
+              </div>
+              <div class="paint-ribbon">
+                <div class="paint-toolbar" aria-label="Paint controls">
+                  <div class="paint-group">
+                    <div class="paint-group-controls tools-grid" role="radiogroup" aria-label="Drawing tools">
+                      <button type="button" class="paint-tool is-active" data-tool="brush" aria-label="Brush tool">Brush</button>
+                      <button type="button" class="paint-tool" data-tool="eraser" aria-label="Eraser tool">Eraser</button>
+                      <button type="button" class="paint-tool" data-tool="line" aria-label="Line tool">Line</button>
+                      <button type="button" class="paint-tool" data-tool="fill" aria-label="Fill tool">Fill</button>
+                      <button type="button" class="paint-tool" data-tool="ellipse" aria-label="Ellipse tool">Circle</button>
+                      <button type="button" class="paint-tool" data-tool="spray" aria-label="Spray tool">Spray</button>
+                    </div>
+                    <span class="paint-group-label">Tools</span>
+                  </div>
+                  <div class="paint-group">
+                    <div class="paint-group-controls paint-colors" role="radiogroup" aria-label="Primary paint colors">
+                      <button type="button" class="paint-color is-active" data-color="#000000" style="background:#000000;" aria-label="Black paint"></button>
+                      <button type="button" class="paint-color" data-color="#ff3b30" style="background:#ff3b30;" aria-label="Red paint"></button>
+                      <button type="button" class="paint-color" data-color="#ff9500" style="background:#ff9500;" aria-label="Orange paint"></button>
+                      <button type="button" class="paint-color" data-color="#ffd60a" style="background:#ffd60a;" aria-label="Yellow paint"></button>
+                      <button type="button" class="paint-color" data-color="#34c759" style="background:#34c759;" aria-label="Green paint"></button>
+                      <button type="button" class="paint-color" data-color="#0a84ff" style="background:#0a84ff;" aria-label="Blue paint"></button>
+                      <button type="button" class="paint-color" data-color="#5e5ce6" style="background:#5e5ce6;" aria-label="Indigo paint"></button>
+                      <button type="button" class="paint-color" data-color="#bf5af2" style="background:#bf5af2;" aria-label="Purple paint"></button>
+                      <button type="button" class="paint-color" data-color="#ff2d55" style="background:#ff2d55;" aria-label="Pink paint"></button>
+                      <button type="button" class="paint-color" data-color="#8e8e93" style="background:#8e8e93;" aria-label="Gray paint"></button>
+                      <button type="button" class="paint-color" data-color="#ffffff" style="background:#ffffff;" aria-label="White paint"></button>
+                    </div>
+                    <span class="paint-group-label">Colors</span>
+                  </div>
+                  <div class="paint-group">
+                    <div class="paint-group-controls">
+                      <button type="button" class="paint-action" data-action="clear" aria-label="Clear canvas">Clear</button>
+                    </div>
+                    <span class="paint-group-label">Canvas</span>
+                  </div>
+                </div>
+              </div>
+              <canvas id="reflectionCanvas" class="paint-canvas" width="960" height="560" aria-label="Drawing canvas"></canvas>
+            </div>
+          </aside>
+        </section>
+
+        <section class="chapter split neutral-surface reflection-followup-section" data-chapter>
+          <div>
+            <p class="type-line line" data-text="Technology helped us connect with the world."></p>
+          </div>
+          <aside class="figure aol-chat-figure" aria-label="Retro messenger chat">
+            <span class="perched-pigeon perched-pigeon-chat" aria-hidden="true">
+              <i class="pp-body"></i><i class="pp-wing"></i><i class="pp-tail"></i><i class="pp-neck"></i><i class="pp-head"></i><i class="pp-eye"></i><i class="pp-beak"></i><i class="pp-legs"></i>
+            </span>
+            <div class="aim-window demo-window">
+              <div class="paint-titlebar demo-titlebar">
+                <span class="paint-title">Instant Messenger</span>
+                <span class="paint-window-controls" aria-hidden="true"><i></i><i></i><i></i></span>
+              </div>
+              <div class="aim-chatpane">
+                <div class="aim-chat-log" id="aimChatLog" aria-live="polite">
+                  <p class="aim-line aim-line-incoming"><span class="aim-name">Anthony:</span><span class="aim-text">Hey, you're online. Want to chat?</span></p>
+                </div>
+                <form class="aim-chat-form" id="aimChatForm" novalidate>
+                  <input
+                    type="text"
+                    id="aimChatInput"
+                    name="message"
+                    maxlength="260"
+                    placeholder="Type a message..."
+                    aria-label="Type a chat message"
+                    required
+                  >
+                  <button type="submit">Send</button>
+                </form>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="chapter split neutral-surface reflection-intent-section" data-chapter>
+          <div class="reflection-intent-copy">
+            <p class="type-line line" data-text="Our relationship with technology felt deliebrate and intentional."></p>
+            <span class="perched-pigeon perched-pigeon-snake" aria-hidden="true">
+              <i class="pp-body"></i><i class="pp-wing"></i><i class="pp-tail"></i><i class="pp-neck"></i><i class="pp-head"></i><i class="pp-eye"></i><i class="pp-beak"></i><i class="pp-legs"></i>
+            </span>
+          </div>
+          <aside class="figure snake-game-figure" aria-label="Snake game visual">
+            <div class="snake-shell demo-window">
+              <div class="paint-titlebar demo-titlebar">
+                <span class="paint-title">Snake</span>
+                <span class="paint-window-controls" aria-hidden="true"><i></i><i></i><i></i></span>
+              </div>
+              <canvas
+                id="reflectionSnakeCanvas"
+                class="snake-canvas"
+                width="720"
+                height="432"
+                aria-label="Snake game board"
+              ></canvas>
+              <p class="snake-score" id="reflectionSnakeScore">Score: 0</p>
+              <p class="snake-hint">Use arrow keys or WASD</p>
+            </div>
+          </aside>
+        </section>
+
+        <section class="chapter split neutral-surface reflection-shift-section" data-chapter>
+          <div>
+            <p class="type-line line" data-text="But one day we woke up and things felt different..."></p>
+          </div>
+          <aside class="figure shift-pigeon-figure" aria-label="8-bit pigeon visual">
+            <div class="pixel-pigeon" id="pixelPigeon" aria-hidden="true">
+              <span class="pigeon-body"></span>
+              <span class="pigeon-body-shade"></span>
+              <span class="pigeon-neck"></span>
+              <span class="pigeon-head"></span>
+              <span class="pigeon-head-highlight"></span>
+              <span class="pigeon-eye"></span>
+              <span class="pigeon-eye-back"></span>
+              <span class="pigeon-beak"></span>
+              <span class="pigeon-wing"></span>
+              <span class="pigeon-wing-highlight"></span>
+              <span class="pigeon-tail"></span>
+              <span class="pigeon-tail-fan"></span>
+              <span class="pigeon-leg-left"></span>
+              <span class="pigeon-leg-right"></span>
+              <span class="pigeon-foot-left"></span>
+              <span class="pigeon-foot-right"></span>
+            </div>
+          </aside>
+        </section>
+
+        <section class="chapter attention-break" data-chapter>
+          <p class="attention-word">
+            <span>WELCOME TO THE</span>
+            <span>ATTENTION ECONOMY</span>
+          </p>
+        </section>
+
+        <section class="chapter notification-section" data-chapter>
+          <div class="storm-board-v2">
+            <p class="notification-mantra">Our technology became loud and distracting.</p>
+            <div class="storm-item si-1" data-abbr="IG"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/instagram.svg" alt="Instagram logo"><span class="icon-fallback">IG</span><b>47</b></div>
+            <div class="storm-item si-2" data-abbr="SL"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/slack.svg" alt="Slack logo"><span class="icon-fallback">SL</span><b>128</b></div>
+            <div class="storm-item si-3" data-abbr="CM"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/coinmarketcap.svg" alt="CoinMarketCap logo"><span class="icon-fallback">CM</span><b>5</b></div>
+            <div class="storm-item si-4" data-abbr="VE"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/venmo.svg" alt="Venmo logo"><span class="icon-fallback">VE</span><b>2</b></div>
+            <div class="storm-item si-5" data-abbr="YT"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/youtube.svg" alt="YouTube logo"><span class="icon-fallback">YT</span><b>18</b></div>
+            <div class="storm-item si-6" data-abbr="NW"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/googlenews.svg" alt="Google News logo"><span class="icon-fallback">NW</span><b>99+</b></div>
+            <div class="storm-item si-7" data-abbr="BF"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/betfair.svg" alt="Betfair logo"><span class="icon-fallback">BF</span><b>1,024</b></div>
+            <div class="storm-item si-8" data-abbr="WA"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/whatsapp.svg" alt="WhatsApp logo"><span class="icon-fallback">WA</span><b>431</b></div>
+            <div class="storm-item si-9" data-abbr="FB"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/facebook.svg" alt="Facebook logo"><span class="icon-fallback">FB</span><b>3</b></div>
+            <div class="storm-item si-10" data-abbr="X"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/x.svg" alt="X logo"><span class="icon-fallback">X</span><b>67</b></div>
+            <div class="storm-item si-11" data-abbr="GM"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/gmail.svg" alt="Gmail logo"><span class="icon-fallback">GM</span><b>2,847</b></div>
+            <div class="storm-item si-12" data-abbr="SC"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/snapchat.svg" alt="Snapchat logo"><span class="icon-fallback">SC</span><b>93</b></div>
+            <div class="storm-item si-13" data-abbr="TT"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/tiktok.svg" alt="TikTok logo"><span class="icon-fallback">TT</span><b>842</b></div>
+            <div class="storm-item si-14" data-abbr="IN"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/linkedin.svg" alt="LinkedIn logo"><span class="icon-fallback">IN</span><b>14</b></div>
+            <div class="storm-item si-15" data-abbr="RD"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/reddit.svg" alt="Reddit logo"><span class="icon-fallback">RD</span><b>256</b></div>
+            <div class="storm-item si-16" data-abbr="DC"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/discord.svg" alt="Discord logo"><span class="icon-fallback">DC</span><b>512</b></div>
+            <div class="storm-item si-17" data-abbr="OL"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/microsoftoutlook.svg" alt="Outlook logo"><span class="icon-fallback">OL</span><b>23</b></div>
+            <div class="storm-item si-18" data-abbr="TG"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/telegram.svg" alt="Telegram logo"><span class="icon-fallback">TG</span><b>7</b></div>
+            <div class="storm-item si-19" data-abbr="PI"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/pinterest.svg" alt="Pinterest logo"><span class="icon-fallback">PI</span><b>12</b></div>
+            <div class="storm-item si-20" data-abbr="TU"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/tumblr.svg" alt="Tumblr logo"><span class="icon-fallback">TU</span><b>44</b></div>
+            <div class="storm-item si-21" data-abbr="TH"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/threads.svg" alt="Threads logo"><span class="icon-fallback">TH</span><b>31</b></div>
+            <div class="storm-item si-22" data-abbr="MA"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/mastodon.svg" alt="Mastodon logo"><span class="icon-fallback">MA</span><b>8</b></div>
+            <div class="storm-item si-23" data-abbr="BS"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/bluesky.svg" alt="Bluesky logo"><span class="icon-fallback">BS</span><b>16</b></div>
+            <div class="storm-item si-24" data-abbr="SG"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/signal.svg" alt="Signal logo"><span class="icon-fallback">SG</span><b>4</b></div>
+            <div class="storm-item si-25" data-abbr="MS"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/messenger.svg" alt="Messenger logo"><span class="icon-fallback">MS</span><b>27</b></div>
+            <div class="storm-item si-26" data-abbr="WC"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/wechat.svg" alt="WeChat logo"><span class="icon-fallback">WC</span><b>9</b></div>
+            <div class="storm-item si-27" data-abbr="LI"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/line.svg" alt="LINE logo"><span class="icon-fallback">LI</span><b>21</b></div>
+            <div class="storm-item si-28" data-abbr="VB"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/viber.svg" alt="Viber logo"><span class="icon-fallback">VB</span><b>3</b></div>
+            <div class="storm-item si-29" data-abbr="ZM"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/zoom.svg" alt="Zoom logo"><span class="icon-fallback">ZM</span><b>2</b></div>
+            <div class="storm-item si-30" data-abbr="ME"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/googlemeet.svg" alt="Google Meet logo"><span class="icon-fallback">ME</span><b>5</b></div>
+            <div class="storm-item si-31" data-abbr="NO"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/notion.svg" alt="Notion logo"><span class="icon-fallback">NO</span><b>18</b></div>
+            <div class="storm-item si-32" data-abbr="AS"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/asana.svg" alt="Asana logo"><span class="icon-fallback">AS</span><b>6</b></div>
+            <div class="storm-item si-33" data-abbr="TR"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/trello.svg" alt="Trello logo"><span class="icon-fallback">TR</span><b>11</b></div>
+            <div class="storm-item si-34" data-abbr="GH"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg" alt="GitHub logo"><span class="icon-fallback">GH</span><b>19</b></div>
+            <div class="storm-item si-35" data-abbr="GL"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/gitlab.svg" alt="GitLab logo"><span class="icon-fallback">GL</span><b>7</b></div>
+            <div class="storm-item si-36" data-abbr="JR"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/jira.svg" alt="Jira logo"><span class="icon-fallback">JR</span><b>14</b></div>
+            <div class="storm-item si-37" data-abbr="FG"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/figma.svg" alt="Figma logo"><span class="icon-fallback">FG</span><b>25</b></div>
+            <div class="storm-item si-38" data-abbr="PP"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/paypal.svg" alt="PayPal logo"><span class="icon-fallback">PP</span><b>10</b></div>
+            <div class="storm-item si-39" data-abbr="CA"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/cashapp.svg" alt="Cash App logo"><span class="icon-fallback">CA</span><b>6</b></div>
+            <div class="storm-item si-40" data-abbr="RH"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/robinhood.svg" alt="Robinhood logo"><span class="icon-fallback">RH</span><b>13</b></div>
+            <div class="storm-item si-41" data-abbr="CB"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/coinbase.svg" alt="Coinbase logo"><span class="icon-fallback">CB</span><b>17</b></div>
+            <div class="storm-item si-42" data-abbr="BN"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/binance.svg" alt="Binance logo"><span class="icon-fallback">BN</span><b>22</b></div>
+            <div class="storm-item si-43" data-abbr="SH"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/shopify.svg" alt="Shopify logo"><span class="icon-fallback">SH</span><b>9</b></div>
+            <div class="storm-item si-44" data-abbr="ET"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/etsy.svg" alt="Etsy logo"><span class="icon-fallback">ET</span><b>12</b></div>
+            <div class="storm-item si-45" data-abbr="EB"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ebay.svg" alt="eBay logo"><span class="icon-fallback">EB</span><b>15</b></div>
+            <div class="storm-item si-46" data-abbr="NF"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/netflix.svg" alt="Netflix logo"><span class="icon-fallback">NF</span><b>1</b></div>
+            <div class="storm-item si-47" data-abbr="AM"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/applemusic.svg" alt="Apple Music logo"><span class="icon-fallback">AM</span><b>5</b></div>
+            <div class="storm-item si-48" data-abbr="DU"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/duolingo.svg" alt="Duolingo logo"><span class="icon-fallback">DU</span><b>3</b></div>
+            <div class="storm-item si-49" data-abbr="ST"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/strava.svg" alt="Strava logo"><span class="icon-fallback">ST</span><b>4</b></div>
+            <div class="storm-item si-50" data-abbr="AB"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/airbnb.svg" alt="Airbnb logo"><span class="icon-fallback">AB</span><b>8</b></div>
+            <div class="storm-item si-51" data-abbr="GC"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/googlecalendar.svg" alt="Google Calendar logo"><span class="icon-fallback">GC</span><b>20</b></div>
+            <div class="storm-item si-52" data-abbr="GD"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/googledrive.svg" alt="Google Drive logo"><span class="icon-fallback">GD</span><b>42</b></div>
+          </div>
+        </section>
+
+        <section class="chapter monetization-break keep-scrolling-break" data-chapter>
+          <p class="monetization-break-word">
+            <span>KEEP SCROLLING.</span>
+          </p>
+        </section>
+
+        <section class="chapter split consumption-prelude-section" data-chapter>
+          <div>
+            <p class="type-line line" data-text="Our data and attention became worth trillions of dollars."></p>
+          </div>
+          <aside class="figure funnel-figure" aria-label="Falling gold coins representing monetization pressure">
+            <div class="money-rain-shell demo-window" id="moneyRainShell">
+              <div class="paint-titlebar demo-titlebar">
+                <span class="paint-title">Browser</span>
+                <span class="paint-window-controls" aria-hidden="true"><i></i><i></i><i></i></span>
+              </div>
+              <canvas id="moneyRainCanvas" class="money-rain-canvas" width="980" height="560" aria-label="Gold coins falling and stacking"></canvas>
+            </div>
+          </aside>
+        </section>
+
+        <section class="chapter monetization-break" data-chapter>
+          <p class="monetization-break-word">
+            <span>Subscriptions.</span>
+            <span>Ad revenue.</span>
+            <span>Buy my course.</span>
+          </p>
+        </section>
+
+        <section class="chapter split reverse logging-off-section" data-chapter>
+          <div>
+            <p class="type-line line" data-text="Technology started to demand more and more of our time and attention."></p>
+          </div>
+          <aside class="figure logging-off-figure" aria-label="Always-on routine visual">
+            <div class="screen-time-stack" role="button" tabindex="0" aria-expanded="false" aria-label="Expand screen time card stack">
+              <div class="stack-card layer-4" aria-hidden="true"></div>
+              <div class="stack-card layer-3" aria-hidden="true"></div>
+              <div class="stack-card layer-2" aria-hidden="true"></div>
+              <div class="stack-card layer-1">
+                <p class="label-row"><strong>Total Screen Time</strong><span>Friday</span></p>
+                <p class="big-time">9h 42m</p>
+                <div class="week-bars"><i></i><i></i><i></i><i></i><i></i><i class="hot"></i><i></i></div>
+                <div class="week-days"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>
+                <p class="warning">+20% from last week</p>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="chapter split reverse neutral-surface consumption-section" data-chapter>
+          <div>
+            <p class="type-line line accent" data-text="Now logging off is not an option."></p>
+          </div>
+          <aside class="figure consumption-figure" aria-label="Uninviting lock screen notification visual">
+            <div class="lockscreen-stack" role="img" aria-label="Lock screen filled with manipulative notifications">
+              <p class="lockscreen-header"><span>Lock Screen</span><span>11:42</span></p>
+              <div class="lockscreen-notifications">
+                <article class="lockscreen-note">
+                  <p class="note-top"><span class="note-app">TikTok</span><time>now</time></p>
+                  <p class="note-copy">You have 17 new videos waiting for you.</p>
+                </article>
+                <article class="lockscreen-note">
+                  <p class="note-top"><span class="note-app">Betfair</span><time>1m</time></p>
+                  <p class="note-copy">Odds shifted. Cash out now or lose your edge.</p>
+                </article>
+                <article class="lockscreen-note">
+                  <p class="note-top"><span class="note-app">Flash Sale</span><time>2m</time></p>
+                  <p class="note-copy">Last chance: 70% off ends in 09:58.</p>
+                </article>
+                <article class="lockscreen-note">
+                  <p class="note-top"><span class="note-app">Inbox Promo</span><time>3m</time></p>
+                  <p class="note-copy">We saved your cart. Buy now before it expires.</p>
+                </article>
+                <article class="lockscreen-note">
+                  <p class="note-top"><span class="note-app">Suggested Reels</span><time>5m</time></p>
+                  <p class="note-copy">You might like these 28 clips.</p>
+                </article>
+                <article class="lockscreen-note">
+                  <p class="note-top"><span class="note-app">Daily Bonus</span><time>7m</time></p>
+                  <p class="note-copy">Claim your bonus and spin now.</p>
+                </article>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="chapter blank-break" data-chapter aria-label="Blank pause section">
+          <span class="blank-break-pigeon pixel-pigeon" aria-hidden="true">
+            <span class="pigeon-body"></span>
+            <span class="pigeon-body-shade"></span>
+            <span class="pigeon-neck"></span>
+            <span class="pigeon-head"></span>
+            <span class="pigeon-head-highlight"></span>
+            <span class="pigeon-eye"></span>
+            <span class="pigeon-eye-back"></span>
+            <span class="pigeon-beak"></span>
+            <span class="pigeon-wing"></span>
+            <span class="pigeon-wing-highlight"></span>
+            <span class="pigeon-tail"></span>
+            <span class="pigeon-tail-fan"></span>
+            <span class="pigeon-leg-left"></span>
+            <span class="pigeon-leg-right"></span>
+            <span class="pigeon-foot-left"></span>
+            <span class="pigeon-foot-right"></span>
+          </span>
+        </section>
+
+        <section class="chapter look-up-break" data-chapter>
+          <span class="look-up-pigeon pixel-pigeon" aria-hidden="true">
+            <span class="pigeon-body"></span>
+            <span class="pigeon-body-shade"></span>
+            <span class="pigeon-neck"></span>
+            <span class="pigeon-head"></span>
+            <span class="pigeon-head-highlight"></span>
+            <span class="pigeon-eye"></span>
+            <span class="pigeon-eye-back"></span>
+            <span class="pigeon-beak"></span>
+            <span class="pigeon-wing"></span>
+            <span class="pigeon-wing-highlight"></span>
+            <span class="pigeon-tail"></span>
+            <span class="pigeon-tail-fan"></span>
+            <span class="pigeon-leg-left"></span>
+            <span class="pigeon-leg-right"></span>
+            <span class="pigeon-foot-left"></span>
+            <span class="pigeon-foot-right"></span>
+          </span>
+          <p class="look-up-word">LOOK UP.</p>
+        </section>
+
+        <section class="chapter meet-pigeon-break" data-chapter>
+          <p class="meet-pigeon-word">MEET PIGEON</p>
+        </section>
+
+        <section class="chapter split product reverse" data-chapter>
+          <div>
+            <p class="type-line line large" data-text="Be present and maintain focus."></p>
+            <p class="type-line line" data-text="The Pigeon smart pager filters your notifications and allows you to stay connected while leaving your phone behind."></p>
+          </div>
+          <aside class="figure product-pigeon-figure">
+            <span class="product-pigeon pixel-pigeon" aria-hidden="true">
+              <span class="pigeon-body"></span>
+              <span class="pigeon-body-shade"></span>
+              <span class="pigeon-neck"></span>
+              <span class="pigeon-head"></span>
+              <span class="pigeon-head-highlight"></span>
+              <span class="pigeon-eye"></span>
+              <span class="pigeon-eye-back"></span>
+              <span class="pigeon-beak"></span>
+              <span class="pigeon-wing"></span>
+              <span class="pigeon-wing-highlight"></span>
+              <span class="pigeon-tail"></span>
+              <span class="pigeon-tail-fan"></span>
+              <span class="pigeon-leg-left"></span>
+              <span class="pigeon-leg-right"></span>
+              <span class="pigeon-foot-left"></span>
+              <span class="pigeon-foot-right"></span>
+            </span>
+          </aside>
+        </section>
+
+        <section class="chapter split device-specs-section" data-chapter>
+          <div>
+            <p class="kicker">Pigeon Hardware</p>
+            <p class="type-line line" data-text="Built to be glanced at."></p>
+            <aside class="figure spec-table">
+              <div class="spec-row"><span>Form Factor</span><b>54 x 89 x 9.5 mm · &lt;50g</b></div>
+              <div class="spec-row"><span>Display</span><b>256x64 monochrome yellow OLED</b></div>
+              <div class="spec-row"><span>Connectivity</span><b>Bluetooth 5.3 + RF front-end</b></div>
+              <div class="spec-row"><span>Battery</span><b>400-600mAh LiPo · multi-day</b></div>
+              <div class="spec-row"><span>Attachment</span><b>MagSafe compatible</b></div>
+              <div class="spec-row"><span>Charging</span><b>USB-C</b></div>
+              <div class="spec-row"><span>Target Price</span><b>$119 USD</b></div>
+              <p class="spec-note">Prototype target: Q2 2026</p>
+            </aside>
+          </div>
+          <aside class="figure spec-blueprint">
+            <div class="blueprint-wrap">
+              <div class="dim horizontal"><span>54mm</span></div>
+              <div class="device-outline">
+                <i class="cut top"></i>
+                <i class="cut bottom-left"></i>
+                <i class="cut bottom-right"></i>
+              </div>
+              <div class="dim vertical"><span>89mm</span></div>
+            </div>
+            <p class="blueprint-foot">9.5mm depth · &lt;50g</p>
+          </aside>
+        </section>
+
+        <section class="chapter split device-specs-section prototype-cta-section" data-chapter>
+          <div>
+            <p class="kicker">Prototype Access</p>
+            <p class="type-line line" data-text="The Pigeon smart pager filters noise so you stay connected to what is essential."></p>
+            <aside class="figure spec-table prototype-signup">
+              <form class="join-form" action="#" method="post" novalidate>
+                <label for="prototypeEmail" class="join-label">Join the waitlist.</label>
+                <div class="join-form-row">
+                  <input
+                    type="email"
+                    id="prototypeEmail"
+                    name="email"
+                    placeholder="Enter your email address."
+                    required
+                    aria-label="Email address"
+                  >
+                  <button type="submit" class="prototype-send-btn" aria-label="Get prototype updates">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                      <path d="M21.5 3.5L10.7 14.3M21.5 3.5L14.9 21.2L10.7 14.3M21.5 3.5L3.8 10.1L10.7 14.3" />
+                    </svg>
+                  </button>
+                </div>
+              </form>
+              <p class="join-success" role="status" aria-live="polite"></p>
+            </aside>
+          </div>
+          <aside class="figure prototype-concept-figure" aria-label="Concept sketch of the Pigeon smart pager">
+            <button type="button" class="prototype-concept-stack" aria-label="Shuffle prototype concept sketches">
+              <span class="prototype-concept-card is-front">
+                <img src="assets/prototype-concept-sketch.png" alt="Pigeon smart pager concept sketch with annotated design details">
+              </span>
+              <span class="prototype-concept-card is-back">
+                <img src="assets/prototype-concept-sketch-alt.png" alt="Pigeon smart pager front, back, top, and bottom concept layout sketch">
+              </span>
+            </button>
+          </aside>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <p class="site-brand-mark site-brand-top-left" aria-hidden="true">Pigeon Group Co.</p>
+  <p class="site-brand-mark site-brand-bottom-left" aria-hidden="true">Phoenix, AZ</p>
+  <img
+    class="site-brand-wordmark"
+    src="assets/pigeon-wordmark-bw.svg"
+    alt="Pigeon wordmark logo"
+  >
+
+  <script src="js/main.js?v=2"></script>
+</body>
+</html>

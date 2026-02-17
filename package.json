@@ -1,0 +1,9 @@
+{
+  "name": "pigeon-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pigeon manifesto site with Buddy Chat proxy",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
