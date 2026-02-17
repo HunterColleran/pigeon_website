@@ -43,6 +43,7 @@ npm start
 Notes:
 - The key is read on the server side only (`server.js`) and is not exposed in browser JS.
 - The chat endpoint is `POST /api/buddy-chat`.
+- For Vercel deployments, the endpoint is implemented as `api/buddy-chat.js`.
 
 ## Structure
 

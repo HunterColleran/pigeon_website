@@ -1392,7 +1392,7 @@ function initBuddyChat() {
 
       if (!response.ok) {
         if (response.status === 404) {
-          throw new Error("Chat endpoint not found. Start the site with `npm start` so `/api/buddy-chat` is available.");
+          throw new Error("Chat endpoint not found. If deployed, add a backend route at `/api/buddy-chat` (for Vercel, create `api/buddy-chat.js`).");
         }
         const serverMessage = typeof payload?.error === "string" ? payload.error : "Unable to reach chat service.";
         throw new Error(serverMessage);
