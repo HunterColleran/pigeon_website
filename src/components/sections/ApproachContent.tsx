@@ -165,23 +165,38 @@ export function ApproachContent() {
 
         {/* Why Now */}
         <section className="bg-shadow px-6 py-28 md:px-12 md:py-40">
-          <div className="mx-auto max-w-3xl">
-            <FadeIn>
-              <SectionNumber n="01" />
-              <h2 className="font-display text-[clamp(1.6rem,3.5vw,2.6rem)] font-bold leading-[1.2] text-cloud/90">
-                Why now?
-              </h2>
-              <p className="mt-6 text-[14px] leading-[1.9] text-concrete/60">
-                Modern technology is optimized to capture and retain our
-                attention. Our time is being monetized through endless feeds,
-                notifications, and systems designed to keep us engaged.
-              </p>
-              <p className="mt-4 border-l-2 border-signal-orange/50 pl-4 text-[14px] font-medium leading-[1.9] text-cloud/85">
-                Pigeon exists to rewrite our relationship with technology by
-                building tools that respect attention, reduce digital noise,
-                and help people return to the real world.
-              </p>
-            </FadeIn>
+          <div className="mx-auto max-w-6xl">
+            <div className="grid gap-12 md:grid-cols-[1.1fr_1fr] md:items-center md:gap-20">
+              <FadeIn>
+                <div>
+                  <SectionNumber n="01" />
+                  <h2 className="font-display text-[clamp(1.6rem,3.5vw,2.6rem)] font-bold leading-[1.2] text-cloud/90">
+                    Why now?
+                  </h2>
+                  <p className="mt-6 text-[14px] leading-[1.9] text-concrete/60">
+                    Modern technology is optimized to capture and retain our
+                    attention. Our time is being monetized through endless feeds,
+                    notifications, and systems designed to keep us engaged.
+                  </p>
+                  <p className="mt-4 border-l-2 border-signal-orange/50 pl-4 text-[14px] font-medium leading-[1.9] text-cloud/85">
+                    Pigeon exists to rewrite our relationship with technology by
+                    building tools that respect attention, reduce digital noise,
+                    and help people return to the real world.
+                  </p>
+                </div>
+              </FadeIn>
+              <FadeIn delay={0.15}>
+                <div className="relative aspect-[16/9] overflow-hidden bg-[#c4a882]">
+                  <Image
+                    src="/approach/concept-sketches.png"
+                    alt="Pigeon concept sketches showing multiple views with annotations"
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
+              </FadeIn>
+            </div>
           </div>
         </section>
 
@@ -331,69 +346,73 @@ export function ApproachContent() {
         {/* The Product — concept sketches + app */}
         <section className="bg-cloud px-6 py-28 md:px-12 md:py-40">
           <div className="mx-auto max-w-6xl">
-            <FadeIn>
-              <SectionNumber n="06" light />
-              <h2 className="font-display text-[clamp(1.6rem,3.5vw,2.6rem)] font-bold leading-[1.2] text-shadow">
-                Designed with intent.
-              </h2>
-              <p className="mt-6 max-w-2xl text-[14px] leading-[1.9] text-asphalt/75">
-                Pigeon has a companion app for users to connect and personalize
-                their device. The device has four modes that filter
-                notifications differently &mdash; while priority contacts can
-                always reach you, no matter the mode.
-              </p>
-              <p className="mt-4 max-w-2xl border-l-2 border-signal-orange/50 pl-4 text-[14px] font-medium leading-[1.9] text-shadow/85">
-                We want people to spend as little time in our app as possible
-                &mdash; but when they&rsquo;re here, every interaction will feel
-                designed and delightful.
-              </p>
-            </FadeIn>
-
-            {/* App screenshots */}
-            <FadeIn>
-              <div className="relative mt-16 aspect-[16/9] overflow-hidden rounded-sm bg-shadow">
-                <Image
-                  src="/approach/app-screens.png"
-                  alt="Pigeon companion app showing modes, priority contacts, and customization screens"
-                  fill
-                  className="object-contain"
-                  sizes="100vw"
-                />
-              </div>
-            </FadeIn>
-
-            {/* Concept sketches + Schematic side by side */}
-            <div className="mt-20 grid gap-8 md:grid-cols-2 md:gap-12">
+            <div className="grid gap-12 md:grid-cols-[1.1fr_1fr] md:items-center md:gap-20">
               <FadeIn>
                 <div>
-                  <p className="mb-4 font-mono text-[10px] tracking-[0.25em] uppercase text-asphalt/50">
-                    Industrial design
+                  <SectionNumber n="06" light />
+                  <h2 className="font-display text-[clamp(1.6rem,3.5vw,2.6rem)] font-bold leading-[1.2] text-shadow">
+                    Designed with intent.
+                  </h2>
+                  <p className="mt-6 text-[14px] leading-[1.9] text-asphalt/75">
+                    Pigeon has a companion app for users to connect and personalize
+                    their device. The device has four modes that filter
+                    notifications differently &mdash; while priority contacts can
+                    always reach you, no matter the mode.
                   </p>
-                  <div className="relative aspect-[16/9] overflow-hidden bg-[#c4a882]">
-                    <Image
-                      src="/approach/concept-sketches.png"
-                      alt="Pigeon concept sketches showing multiple views with annotations"
-                      fill
-                      className="object-contain"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                  </div>
+                  <p className="mt-4 border-l-2 border-signal-orange/50 pl-4 text-[14px] font-medium leading-[1.9] text-shadow/85">
+                    We want people to spend as little time in our app as possible
+                    &mdash; but when they&rsquo;re here, every interaction will feel
+                    designed and delightful.
+                  </p>
                 </div>
               </FadeIn>
-              <FadeIn delay={0.1}>
+              <FadeIn delay={0.15}>
+                <div className="relative aspect-[16/9] overflow-hidden rounded-sm bg-shadow">
+                  <Image
+                    src="/approach/app-screens.png"
+                    alt="Pigeon companion app showing modes, priority contacts, and customization screens"
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
+              </FadeIn>
+            </div>
+
+          </div>
+        </section>
+
+        {/* Designed for Utility */}
+        <section className="bg-shadow px-6 py-28 md:px-12 md:py-40">
+          <div className="mx-auto max-w-6xl">
+            <div className="grid gap-12 md:grid-cols-[1fr_1.1fr] md:items-center md:gap-20">
+              <FadeIn>
                 <div>
-                  <p className="mb-4 font-mono text-[10px] tracking-[0.25em] uppercase text-asphalt/50">
-                    Hardware engineering
+                  <SectionNumber n="07" />
+                  <h2 className="font-display text-[clamp(1.6rem,3.5vw,2.6rem)] font-bold leading-[1.2] text-cloud/90">
+                    Designed for utility.
+                  </h2>
+                  <p className="mt-6 text-[14px] leading-[1.9] text-concrete/60">
+                    Pigeon&rsquo;s mechanical and electrical components were
+                    designed in house. The device is optimized for bluetooth
+                    range, speed and battery life.
                   </p>
-                  <div className="relative aspect-[16/9] overflow-hidden bg-cloud">
-                    <Image
-                      src="/approach/schematic.png"
-                      alt="Pigeon Smart Pager KiCad schematic — Visual Feedback subsystem"
-                      fill
-                      className="object-contain"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                  </div>
+                  <p className="mt-4 text-[14px] leading-[1.9] text-concrete/60">
+                    We want you to leave the device out on your desk or the
+                    table. Every component was built intentionally for your
+                    enjoyment and fidgetability.
+                  </p>
+                </div>
+              </FadeIn>
+              <FadeIn delay={0.15}>
+                <div className="relative aspect-[16/9] overflow-hidden bg-cloud">
+                  <Image
+                    src="/approach/schematic.png"
+                    alt="Pigeon Smart Pager KiCad schematic — Visual Feedback subsystem"
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
                 </div>
               </FadeIn>
             </div>
