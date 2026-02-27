@@ -1,8 +1,9 @@
 "use client";
 
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { motion } from "framer-motion";
+
+import { motion, AnimatePresence } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useInView } from "@/hooks/useInView";
 import { Header } from "@/components/layout/Header";
@@ -38,22 +39,90 @@ function FadeIn({
   );
 }
 
-function SectionNumber({ n }: { n: string }) {
+function SectionNumber({ n, light = false }: { n: string; light?: boolean }) {
   return (
-    <span className="mb-6 block font-mono text-[10px] tracking-[0.25em] uppercase text-concrete/30">
+    <span className={`mb-6 block font-mono text-[10px] tracking-[0.25em] uppercase ${light ? "text-asphalt/40" : "text-concrete/30"}`}>
       {n}
     </span>
   );
 }
 
 const inspoImages = [
-  { src: "/approach/inspo-braun.png", alt: "Braun digital clock" },
-  { src: "/approach/inspo-walkman.png", alt: "Sony Walkman" },
-  { src: "/approach/inspo-gameboy.png", alt: "Nintendo Game Boy" },
-  { src: "/approach/inspo-psone.png", alt: "Sony PS One" },
-  { src: "/approach/inspo-imac.png", alt: "Apple iMac G3" },
-  { src: "/approach/inspo-magsafe.png", alt: "MagSafe accessory" },
+  { src: "/approach/device-sony-walkman.png", alt: "Sony Walkman" },
+  { src: "/approach/device-gameboy.png", alt: "Nintendo Game Boy" },
+  { src: "/approach/device-braun-recorder.png", alt: "Braun Recorder" },
+  { src: "/approach/device-psone.png", alt: "Sony PS One" },
+  { src: "/approach/device-imac-g3.png", alt: "Apple iMac G3" },
+  { src: "/approach/device-braun-clock.png", alt: "Braun Digital Clock" },
+  { src: "/approach/device-blackberry.png", alt: "BlackBerry 6210" },
+  { src: "/approach/device-ipod.png", alt: "Apple iPod" },
+  { src: "/approach/device-kodak-instamatic.png", alt: "Kodak Instamatic 100" },
+  { src: "/approach/device-rabbit-r1.png", alt: "Rabbit R1" },
+  { src: "/approach/device-rabbit-r1-angle.png", alt: "Rabbit R1" },
+  { src: "/approach/device-rabbit-r1-back.png", alt: "Rabbit R1" },
+  { src: "/approach/device-tape-dispenser.png", alt: "Tape Dispenser" },
+  { src: "/approach/device-macro-keypad.png", alt: "Macro Keypad" },
+  { src: "/approach/device-tp7.png", alt: "Teenage Engineering TP-7" },
 ];
+
+function InspoCarousel() {
+  const [current, setCurrent] = useState(0);
+  const reduced = useReducedMotion();
+
+  const next = useCallback(() => {
+    setCurrent((i) => (i + 1) % inspoImages.length);
+  }, []);
+
+  useEffect(() => {
+    if (reduced) return;
+    const id = setInterval(next, 3500);
+    return () => clearInterval(id);
+  }, [reduced, next]);
+
+  return (
+    <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-cloud">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={current}
+          initial={reduced ? false : { opacity: 0, scale: 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={reduced ? undefined : { opacity: 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute inset-0"
+        >
+          <Image
+            src={inspoImages[current].src}
+            alt={inspoImages[current].alt}
+            fill
+            className="object-contain p-8"
+            sizes="(max-width: 768px) 100vw, 500px"
+          />
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Caption + dots */}
+      <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between px-4 pb-4">
+        <p className="font-mono text-[10px] tracking-[0.15em] uppercase text-asphalt/50">
+          {inspoImages[current].alt}
+        </p>
+        <div className="flex gap-1.5">
+          {inspoImages.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              aria-label={`Show ${inspoImages[i].alt}`}
+              className={`h-1.5 w-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                i === current
+                  ? "bg-signal-orange"
+                  : "bg-asphalt/20 hover:bg-asphalt/40"
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function ApproachContent() {
   const reduced = useReducedMotion();
@@ -75,7 +144,7 @@ export function ApproachContent() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-shadow via-shadow/40 to-transparent" />
           <div className="relative z-10 flex h-full flex-col justify-end px-6 pb-16 md:px-12 md:pb-24">
-            <motion.div
+            <motion.div className="mx-auto w-full max-w-6xl"
               initial={reduced ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
@@ -96,38 +165,23 @@ export function ApproachContent() {
 
         {/* Why Now */}
         <section className="bg-shadow px-6 py-28 md:px-12 md:py-40">
-          <div className="mx-auto max-w-6xl">
-            <div className="grid gap-12 md:grid-cols-[1fr_1.1fr] md:items-center md:gap-20">
-              <FadeIn>
-                <div>
-                  <SectionNumber n="01" />
-                  <h2 className="font-display text-[clamp(1.6rem,3.5vw,2.6rem)] font-bold leading-[1.2] text-cloud/90">
-                    Why now?
-                  </h2>
-                  <p className="mt-6 text-[14px] leading-[1.9] text-concrete/60">
-                    Modern technology is optimized to capture and retain our
-                    attention. Our time is being monetized through endless feeds,
-                    notifications, and systems designed to keep us engaged.
-                  </p>
-                  <p className="mt-4 border-l-2 border-signal-orange/50 pl-4 text-[14px] font-medium leading-[1.9] text-cloud/85">
-                    Pigeon exists to rewrite our relationship with technology by
-                    building tools that respect attention, reduce digital noise,
-                    and help people return to the real world.
-                  </p>
-                </div>
-              </FadeIn>
-              <FadeIn delay={0.15}>
-                <div className="relative aspect-[3/2] overflow-hidden">
-                  <Image
-                    src="/approach/why-now.png"
-                    alt="People walking across a crosswalk, all looking at their phones"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                </div>
-              </FadeIn>
-            </div>
+          <div className="mx-auto max-w-3xl">
+            <FadeIn>
+              <SectionNumber n="01" />
+              <h2 className="font-display text-[clamp(1.6rem,3.5vw,2.6rem)] font-bold leading-[1.2] text-cloud/90">
+                Why now?
+              </h2>
+              <p className="mt-6 text-[14px] leading-[1.9] text-concrete/60">
+                Modern technology is optimized to capture and retain our
+                attention. Our time is being monetized through endless feeds,
+                notifications, and systems designed to keep us engaged.
+              </p>
+              <p className="mt-4 border-l-2 border-signal-orange/50 pl-4 text-[14px] font-medium leading-[1.9] text-cloud/85">
+                Pigeon exists to rewrite our relationship with technology by
+                building tools that respect attention, reduce digital noise,
+                and help people return to the real world.
+              </p>
+            </FadeIn>
           </div>
         </section>
 
@@ -148,11 +202,10 @@ export function ApproachContent() {
                     <div className="flex flex-col gap-4 text-[14px] leading-[1.9] text-concrete/60">
                       <p>
                         We don&rsquo;t believe the solution to screen addiction
-                        is better screen management &mdash; it&rsquo;s
-                        separation. Instead of asking people to rely on
+                        is better screen management. Instead of asking people to rely on
                         willpower inside systems designed to capture attention,
                         we&rsquo;re building a modern, single-purpose device
-                        that delivers only what truly matters.
+                        that let&rsquo;s you leave your phone behind.
                       </p>
                       <p className="font-mono text-[13px] tracking-[0.02em] text-concrete/70">
                         No feeds. No infinite scroll. No pressure to check one
@@ -160,7 +213,7 @@ export function ApproachContent() {
                       </p>
                     </div>
                     <p className="text-[14px] leading-[1.9] text-concrete/60">
-                      AI quietly filters the noise, hardware creates a clear
+                      The Pigeon quietly filters the noise, hardware creates a clear
                       boundary, and your attention stays where it belongs
                       &mdash; with your work, your people, and your life.
                     </p>
@@ -189,20 +242,17 @@ export function ApproachContent() {
               </FadeIn>
               <FadeIn delay={0.1}>
                 <div>
-                  <SectionNumber n="03" />
+                  <SectionNumber n="03" light />
                   <h2 className="font-display text-[clamp(1.6rem,3.5vw,2.6rem)] font-bold leading-[1.2] text-shadow">
                     Why a modern pager?
                   </h2>
                   <p className="mt-6 text-[14px] leading-[1.9] text-asphalt/75">
-                    Phones are incredible &mdash; but they were designed to
-                    capture and keep attention. Every alert competes equally,
-                    pulling us out of conversations, sleep, focus, and the world
-                    around us.
+                    We aren&rsquo;t ready to replace our phones, despite their harm they provide immense convenience. A modern pager was a natural form factor for a companion device to your main phone.
                   </p>
                   <p className="mt-4 text-[14px] leading-[1.9] text-asphalt/75">
                     Pagers are still relied on today because they deliver
                     what&rsquo;s urgent without distraction. A modern pager
-                    builds on that idea: a single-purpose device for
+                    builds on that idea, a single-purpose device for
                     time-sensitive messages, loved ones, and moments that truly
                     require your attention.
                   </p>
@@ -217,7 +267,7 @@ export function ApproachContent() {
             <div className="grid gap-12 md:grid-cols-[1fr_1.1fr] md:items-center md:gap-20">
               <FadeIn>
                 <div>
-                  <SectionNumber n="04" />
+                  <SectionNumber n="04" light />
                   <h2 className="font-display text-[clamp(1.6rem,3.5vw,2.6rem)] font-bold leading-[1.2] text-shadow">
                     Why MagSafe?
                   </h2>
@@ -225,25 +275,22 @@ export function ApproachContent() {
                     MagSafe is already part of how people use their phones. It
                     powers wireless charging, holds wallets, mounts tripods,
                     props up stands, and snaps into car holders and power banks.
-                    People understand the interaction &mdash; it&rsquo;s quick,
-                    intuitive, and trusted.
                   </p>
                   <p className="mt-4 text-[14px] leading-[1.9] text-asphalt/75">
-                    That familiarity matters. It allows us to design a compact,
+                    It allows us to design a compact,
                     pocketable device that fits naturally into existing habits,
-                    without asking people to learn a new system or carry
-                    something awkward.
+                    without asking people to wear or carry something new.
                   </p>
                 </div>
               </FadeIn>
               <FadeIn delay={0.1}>
-                <div className="relative aspect-square max-w-[400px] overflow-hidden md:ml-auto">
+                <div className="relative aspect-[4/3] max-w-[480px] overflow-hidden md:ml-auto">
                   <Image
-                    src="/approach/inspo-magsafe.png"
-                    alt="Orange MagSafe compatible device"
+                    src="/concept-sketch-alt.png"
+                    alt="Pigeon concept sketch showing MagSafe ring on the back of the device"
                     fill
-                    className="object-contain"
-                    sizes="(max-width: 768px) 100vw, 400px"
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 480px"
                   />
                 </div>
               </FadeIn>
@@ -267,43 +314,17 @@ export function ApproachContent() {
                     designed with texture, usefulness, and optimism.
                   </p>
                   <p className="mt-4 text-[14px] leading-[1.9] text-concrete/60">
-                    This is not nostalgia, but contrast: hardware people want to
+                    We are building hardware people want to
                     hold and look at, with materials and form that stand apart
                     from the smooth, featureless slabs we carry today.
                   </p>
                 </div>
 
-                {/* Mood board grid */}
-                <div className="grid grid-cols-3 gap-2">
-                  {inspoImages.map((img, i) => (
-                    <FadeIn key={img.src} delay={i * 0.08}>
-                      <div className="relative aspect-square overflow-hidden bg-char">
-                        <Image
-                          src={img.src}
-                          alt={img.alt}
-                          fill
-                          className="object-contain p-3 transition-transform duration-500 hover:scale-105"
-                          sizes="(max-width: 768px) 33vw, 200px"
-                        />
-                      </div>
-                    </FadeIn>
-                  ))}
-                </div>
+                {/* Ambient carousel */}
+                <InspoCarousel />
               </div>
             </FadeIn>
 
-            {/* City image */}
-            <FadeIn>
-              <div className="relative mt-20 aspect-[2.4/1] overflow-hidden">
-                <Image
-                  src="/approach/inspiration-city.png"
-                  alt="Pigeons on a wire with the Empire State Building in the background"
-                  fill
-                  className="object-cover opacity-70"
-                  sizes="100vw"
-                />
-              </div>
-            </FadeIn>
           </div>
         </section>
 
@@ -311,7 +332,7 @@ export function ApproachContent() {
         <section className="bg-cloud px-6 py-28 md:px-12 md:py-40">
           <div className="mx-auto max-w-6xl">
             <FadeIn>
-              <SectionNumber n="06" />
+              <SectionNumber n="06" light />
               <h2 className="font-display text-[clamp(1.6rem,3.5vw,2.6rem)] font-bold leading-[1.2] text-shadow">
                 Designed with intent.
               </h2>
@@ -379,41 +400,6 @@ export function ApproachContent() {
           </div>
         </section>
 
-        {/* Closing CTA */}
-        <section className="relative overflow-hidden bg-shadow px-6 py-28 md:px-12 md:py-40">
-          <Image
-            src="/approach/look-up.jpeg"
-            alt="Looking up at buildings from the street"
-            fill
-            className="object-cover opacity-20"
-            sizes="100vw"
-          />
-          <div className="relative z-10 mx-auto max-w-2xl text-center">
-            <FadeIn>
-              <h2 className="font-display text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.1] text-cloud">
-                Look up.
-              </h2>
-              <p className="mt-6 text-[14px] leading-[1.9] text-concrete/60">
-                Technology should serve people, not the other way around.
-                We&rsquo;re building the tools to make that possible.
-              </p>
-              <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-                <Link
-                  href="/#reserve"
-                  className="bg-signal-orange px-8 py-3.5 font-mono text-[11px] tracking-[0.15em] uppercase text-cloud transition-all duration-300 hover:brightness-110 active:scale-[0.97]"
-                >
-                  Reserve your spot &rarr;
-                </Link>
-                <Link
-                  href="/letter"
-                  className="font-mono text-[11px] tracking-[0.15em] text-concrete/50 transition-colors duration-300 hover:text-signal-orange"
-                >
-                  Read our letter &rarr;
-                </Link>
-              </div>
-            </FadeIn>
-          </div>
-        </section>
       </main>
       <Footer />
     </>

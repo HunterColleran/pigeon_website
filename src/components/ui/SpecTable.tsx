@@ -48,9 +48,10 @@ function AnimatedValue({
 
 interface SpecTableProps {
   light?: boolean;
+  compact?: boolean;
 }
 
-export function SpecTable({ light = false }: SpecTableProps) {
+export function SpecTable({ light = false, compact = false }: SpecTableProps) {
   const [ref, inView] = useInView<HTMLDivElement>(0.3);
 
   return (
@@ -58,7 +59,7 @@ export function SpecTable({ light = false }: SpecTableProps) {
       {SPECS.map(({ label, value }, i) => (
         <div
           key={label}
-          className={`group flex items-baseline justify-between gap-6 py-3 font-mono transition-colors duration-200 ${
+          className={`group flex items-baseline justify-between gap-6 ${compact ? "py-2" : "py-3"} font-mono transition-colors duration-200 ${
             i < SPECS.length - 1
               ? light
                 ? "border-b border-shadow/[0.08]"
@@ -67,7 +68,7 @@ export function SpecTable({ light = false }: SpecTableProps) {
           }`}
         >
           <span
-            className={`text-[10px] uppercase tracking-[0.2em] transition-colors duration-200 ${
+            className={`${compact ? "text-[9px]" : "text-[10px]"} uppercase tracking-[0.2em] transition-colors duration-200 ${
               light
                 ? "text-asphalt/55 group-hover:text-asphalt/70"
                 : "text-concrete/35 group-hover:text-concrete/55"
@@ -76,7 +77,7 @@ export function SpecTable({ light = false }: SpecTableProps) {
             {label}
           </span>
           <span
-            className={`text-[13px] transition-colors duration-200 group-hover:text-signal-orange/80 ${
+            className={`${compact ? "text-[12px]" : "text-[13px]"} transition-colors duration-200 group-hover:text-signal-orange/80 ${
               light ? "text-shadow/80" : "text-concrete/70"
             }`}
           >

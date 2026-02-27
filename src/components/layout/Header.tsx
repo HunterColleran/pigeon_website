@@ -44,6 +44,12 @@ export function Header() {
           Letter
         </Link>
         <Link
+          href="/beta"
+          className="text-concrete/50 transition-colors duration-300 hover:text-cloud"
+        >
+          Beta
+        </Link>
+        <Link
           href="/#reserve"
           className="border border-concrete/25 px-3 py-1.5 text-concrete/55 transition-all duration-300 hover:border-signal-orange/40 hover:text-signal-orange"
         >

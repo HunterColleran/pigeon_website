@@ -104,7 +104,7 @@ export function ReservationForm() {
             exit={reduced ? undefined : { opacity: 0, y: -8 }}
             transition={transition}
           >
-            <div className="group relative">
+            <div className="group relative shadow-[0_24px_80px_-12px_rgba(0,0,0,0.6),0_8px_24px_-8px_rgba(0,0,0,0.4)] md:rotate-[-0.4deg]">
               {/* Animated focus corners */}
               <div className="pointer-events-none absolute -inset-2">
                 <div

@@ -196,6 +196,10 @@ export function LetterContent() {
         Best,
         <br />
         Hunter
+        <br />
+        <a href="mailto:hunter@pigeongroup.co" className="transition-colors duration-300 hover:text-signal-orange">hunter@pigeongroup.co</a>
+        <br />
+        <a href="tel:+16319652344" className="transition-colors duration-300 hover:text-signal-orange">631-965-2344</a>
       </p>
     </article>
   );

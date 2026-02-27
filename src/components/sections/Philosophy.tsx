@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useInView } from "@/hooks/useInView";
-import { SectionLabel } from "@/components/ui/SectionLabel";
+
 
 export function Philosophy() {
   const reduced = useReducedMotion();
@@ -39,10 +39,8 @@ export function Philosophy() {
 
       <div className="px-6 py-28 md:px-12 md:py-40">
         <div className="mx-auto max-w-6xl">
-          <SectionLabel number="01" />
-
-          {/* Inset card */}
-          <div className="border border-cloud/[0.08] px-8 py-12 md:px-14 md:py-16">
+          {/* Inset card — floating */}
+          <div className="border border-cloud/[0.08] px-8 py-12 shadow-[0_24px_80px_-12px_rgba(0,0,0,0.6),0_8px_24px_-8px_rgba(0,0,0,0.4)] md:px-14 md:py-16 md:-mx-8 md:rotate-[-0.4deg]">
             <div
               ref={ref}
               className="grid gap-12 md:grid-cols-[1.1fr_1fr] md:items-start md:gap-20"

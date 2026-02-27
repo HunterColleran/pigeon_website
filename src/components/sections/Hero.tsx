@@ -124,16 +124,6 @@ export function Hero() {
           </Button>
         </motion.div>
 
-        {/* Metadata stamps */}
-        <motion.div
-          {...fade(1.6)}
-          className="mt-8 flex flex-wrap gap-x-8 gap-y-1 font-mono text-[9px] tracking-[0.25em] uppercase text-concrete/25"
-        >
-          <span>PGN</span>
-          <span>Est. 2026</span>
-          <span>Phoenix, AZ</span>
-          <span>BLE Smart Pager</span>
-        </motion.div>
       </div>
     </section>
   );
