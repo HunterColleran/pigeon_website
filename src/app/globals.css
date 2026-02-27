@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@theme {
+  --color-shadow: #0F1113;
+  --color-char: #2A2E31;
+  --color-asphalt: #4E545A;
+  --color-concrete: #D3D6DA;
+  --color-cloud: #F2F3F4;
+  --color-signal-orange: #E87A2F;
+  --color-moss: #6A8E7F;
+  --color-iridescent-purple: #7A6A9E;
+
+  --font-display: "Syne", system-ui, sans-serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* ─── Base ─────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: var(--color-signal-orange);
+  color: var(--color-cloud);
+}
+
+/* ─── Dot grid backgrounds ────────────────────────── */
+
+.dot-grid {
+  background-image: radial-gradient(
+    circle,
+    rgba(242, 243, 244, 0.055) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+}
+
+.dot-grid-light {
+  background-image: radial-gradient(
+    circle,
+    rgba(15, 17, 19, 0.045) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+}
+
+/* ─── Scrollbar ───────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-asphalt);
+  border-radius: 2px;
+}
+
+/* ─── Drop cap ────────────────────────────────────── */
+
+.drop-cap::first-letter {
+  float: left;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 3.4em;
+  line-height: 0.8;
+  padding-right: 0.1em;
+  margin-top: 0.05em;
+  color: var(--color-signal-orange);
+}
