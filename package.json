@@ -1,9 +1,30 @@
 {
   "name": "pigeon-website",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "Pigeon manifesto site with Buddy Chat proxy",
+  "description": "Pigeon Group — pigeongroup.co",
   "scripts": {
-    "start": "node server.js"
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^15.3.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "framer-motion": "^12.6.3",
+    "@supabase/supabase-js": "^2.49.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "typescript": "^5.8.3",
+    "@tailwindcss/postcss": "^4.1.4",
+    "tailwindcss": "^4.1.4",
+    "@eslint/eslintrc": "^3",
+    "eslint": "^9",
+    "eslint-config-next": "^15.3.2"
   }
 }
