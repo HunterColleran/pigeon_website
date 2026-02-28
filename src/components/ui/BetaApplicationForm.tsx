@@ -115,6 +115,7 @@ export function BetaApplicationForm() {
   const [stateField, setStateField] = useState("");
   const [country, setCountry] = useState("United States");
   const [screenTime, setScreenTime] = useState("");
+  const [phoneOs, setPhoneOs] = useState("");
   const [occupation, setOccupation] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
@@ -138,8 +139,8 @@ export function BetaApplicationForm() {
       return;
     }
 
-    if (!screenTime || !age) {
-      setError("Screen time and age are required.");
+    if (!screenTime || !phoneOs || !age) {
+      setError("Screen time, primary phone, and age are required.");
       return;
     }
 
@@ -159,6 +160,7 @@ export function BetaApplicationForm() {
             state: stateField.trim() || undefined,
             country,
             screenTime,
+            phoneOs,
             occupation: occupation.trim() || undefined,
             age,
             gender: gender || undefined,
@@ -331,6 +333,30 @@ export function BetaApplicationForm() {
                     </div>
                   </div>
                 </FieldWrapper>
+                <FieldWrapper label="Primary phone" required>
+                  <div className="relative">
+                    <select
+                      value={phoneOs}
+                      onChange={(e) => setPhoneOs(e.target.value)}
+                      required
+                      className={`${selectClass} ${!phoneOs ? "text-concrete/20" : ""}`}
+                    >
+                      <option value="" disabled className="bg-shadow text-concrete/40">
+                        Select
+                      </option>
+                      <option value="iPhone" className="bg-shadow text-cloud">iPhone</option>
+                      <option value="Android" className="bg-shadow text-cloud">Android</option>
+                      <option value="Other" className="bg-shadow text-cloud">Other</option>
+                    </select>
+                    <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
+                      <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
+                        <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-concrete/30" />
+                      </svg>
+                    </div>
+                  </div>
+                </FieldWrapper>
+              </div>
+              <div className="mt-6">
                 <FieldWrapper label="Occupation">
                   <input
                     type="text"

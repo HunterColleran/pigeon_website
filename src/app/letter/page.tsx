@@ -5,7 +5,18 @@ import { LetterContent } from "@/components/sections/LetterContent";
 
 export const metadata: Metadata = {
   title: "A Letter to the Consumer",
-  description: "A letter to the consumer from Pigeon Group Co.",
+  description:
+    "A letter from Pigeon Group on why we're building a device that helps you look up from your phone.",
+  openGraph: {
+    title: "A Letter to the Consumer — Pigeon",
+    description:
+      "A letter from Pigeon Group on why we're building a device that helps you look up from your phone.",
+  },
+  twitter: {
+    title: "A Letter to the Consumer — Pigeon",
+    description:
+      "A letter from Pigeon Group on why we're building a device that helps you look up from your phone.",
+  },
 };
 
 export default function LetterPage() {

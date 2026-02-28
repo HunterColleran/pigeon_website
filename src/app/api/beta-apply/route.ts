@@ -24,6 +24,7 @@ export async function POST(request: NextRequest) {
     const state = body.state?.trim() || null;
     const country = body.country?.trim();
     const screenTime = body.screenTime?.trim();
+    const phoneOs = body.phoneOs?.trim() || null;
     const occupation = body.occupation?.trim() || null;
     const age = body.age?.trim();
     const gender = body.gender?.trim() || null;
@@ -107,6 +108,7 @@ export async function POST(request: NextRequest) {
         state,
         country,
         screen_time: screenTime,
+        phone_os: phoneOs,
         occupation,
         age,
         gender,

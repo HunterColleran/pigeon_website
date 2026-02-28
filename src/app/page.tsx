@@ -15,7 +15,7 @@ export default function Home() {
         <Hero />
         <Philosophy />
         <Product />
-        <section className="relative h-[50vh] min-h-[320px] overflow-hidden bg-shadow">
+        <section className="relative h-[35vh] min-h-[240px] overflow-hidden bg-shadow">
           <Image
             src="/look-up-banner.png"
             alt="LOOK UP. — buildings looking up at the sky with Pigeon branding"

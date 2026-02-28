@@ -46,6 +46,42 @@ export function BetaContent() {
         {/* Orange divider */}
         <div className="h-[3px] w-full bg-signal-orange" />
 
+        {/* What beta testers get */}
+        <section className="bg-shadow px-6 pt-20 pb-0 md:px-12 md:pt-28 md:pb-0">
+          <div className="mx-auto max-w-3xl">
+            <div className="grid gap-10 md:grid-cols-3 md:gap-12">
+              <div>
+                <p className="mb-2 font-mono text-[10px] tracking-[0.25em] uppercase text-signal-orange">
+                  Free device
+                </p>
+                <p className="text-[14px] leading-[1.9] text-concrete/60">
+                  Beta testers receive a Pigeon at no cost.
+                </p>
+              </div>
+              <div>
+                <p className="mb-2 font-mono text-[10px] tracking-[0.25em] uppercase text-signal-orange">
+                  Shape the product
+                </p>
+                <p className="text-[14px] leading-[1.9] text-concrete/60">
+                  Your feedback directly influences what we build next.
+                </p>
+              </div>
+              <div>
+                <p className="mb-2 font-mono text-[10px] tracking-[0.25em] uppercase text-signal-orange">
+                  First access
+                </p>
+                <p className="text-[14px] leading-[1.9] text-concrete/60">
+                  Be among the first people in the world to use Pigeon.
+                </p>
+              </div>
+            </div>
+            <p className="mt-10 font-mono text-[10px] tracking-[0.15em] uppercase text-concrete/35">
+              We&rsquo;re selecting a small group of testers. Applications are
+              reviewed individually.
+            </p>
+          </div>
+        </section>
+
         {/* Form section */}
         <section className="bg-shadow px-6 py-20 md:px-12 md:py-28">
           <div className="mx-auto max-w-3xl">

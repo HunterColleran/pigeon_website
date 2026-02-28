@@ -37,7 +37,7 @@ export function Philosophy() {
       {/* Full-bleed orange divider */}
       <div className="h-[3px] w-full bg-signal-orange" />
 
-      <div className="px-6 py-28 md:px-12 md:py-40">
+      <div className="px-6 py-20 md:px-12 md:py-28">
         <div className="mx-auto max-w-6xl">
           {/* Inset card — floating */}
           <div className="border border-cloud/[0.08] px-8 py-12 shadow-[0_24px_80px_-12px_rgba(0,0,0,0.6),0_8px_24px_-8px_rgba(0,0,0,0.4)] md:px-14 md:py-16 md:-mx-8 md:rotate-[-0.4deg]">
@@ -61,7 +61,7 @@ export function Philosophy() {
                 variants={container}
                 initial="hidden"
                 animate={inView ? "show" : "hidden"}
-                className="flex flex-col gap-5 text-[14px] leading-[1.9] text-concrete/60"
+                className="flex flex-col gap-5 text-[14px] leading-[1.9] text-concrete/75"
               >
                 <motion.p variants={item}>
                   Now it&rsquo;s impossible to log off. Technology demands more
