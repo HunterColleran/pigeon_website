@@ -47,77 +47,6 @@ function SectionNumber({ n, light = false }: { n: string; light?: boolean }) {
   );
 }
 
-const inspoImages = [
-  { src: "/approach/device-sony-walkman.png", alt: "Sony Walkman" },
-  { src: "/approach/device-gameboy.png", alt: "Nintendo Game Boy" },
-  { src: "/approach/device-braun-recorder.png", alt: "Braun Recorder" },
-  { src: "/approach/device-braun-clock.png", alt: "Braun Digital Clock" },
-  { src: "/approach/device-blackberry.png", alt: "BlackBerry 6210" },
-  { src: "/approach/device-ipod.png", alt: "Apple iPod" },
-  { src: "/approach/device-rabbit-r1-angle.png", alt: "Rabbit R1" },
-  { src: "/approach/device-rabbit-r1-back.png", alt: "Rabbit R1" },
-  { src: "/approach/device-tape-dispenser.png", alt: "Tape Dispenser" },
-  { src: "/approach/device-tp7.png", alt: "Teenage Engineering TP-7" },
-];
-
-function InspoCarousel() {
-  const [current, setCurrent] = useState(0);
-  const reduced = useReducedMotion();
-
-  const next = useCallback(() => {
-    setCurrent((i) => (i + 1) % inspoImages.length);
-  }, []);
-
-  useEffect(() => {
-    if (reduced) return;
-    const id = setInterval(next, 3500);
-    return () => clearInterval(id);
-  }, [reduced, next]);
-
-  return (
-    <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-cloud">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={current}
-          initial={reduced ? false : { opacity: 0, scale: 1.04 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={reduced ? undefined : { opacity: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0"
-        >
-          <Image
-            src={inspoImages[current].src}
-            alt={inspoImages[current].alt}
-            fill
-            className="object-contain p-8"
-            sizes="(max-width: 768px) 100vw, 500px"
-          />
-        </motion.div>
-      </AnimatePresence>
-
-      {/* Caption + dots */}
-      <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between px-4 pb-4">
-        <p className="font-mono text-[10px] tracking-[0.15em] uppercase text-asphalt/50">
-          {inspoImages[current].alt}
-        </p>
-        <div className="flex gap-1.5">
-          {inspoImages.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              aria-label={`Show ${inspoImages[i].alt}`}
-              className={`h-1.5 w-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                i === current
-                  ? "bg-signal-orange"
-                  : "bg-asphalt/20 hover:bg-asphalt/40"
-              }`}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 const SECTION_IDS = [
   "approach-01",
@@ -127,7 +56,6 @@ const SECTION_IDS = [
   "approach-05",
   "approach-06",
   "approach-07",
-  "approach-08",
 ];
 
 function SectionDotNav() {
@@ -317,15 +245,14 @@ export function ApproachContent() {
             {/* Why a Modern Pager */}
             <div className="grid gap-12 md:grid-cols-[1.1fr_1fr] md:items-center md:gap-20">
               <FadeIn>
-                <div className="relative aspect-square max-w-[400px] overflow-hidden rounded-xl shadow-[0_24px_80px_-12px_rgba(0,0,0,0.15),0_8px_24px_-8px_rgba(0,0,0,0.1)]">
-                  <Image
-                    src="/approach/motorola-pager.png"
-                    alt="Motorola Advisor pager displaying a message"
-                    fill
-                    className="object-contain"
-                    sizes="(max-width: 768px) 100vw, 400px"
-                  />
-                </div>
+                <Image
+                  src="/approach/motorola-pager.png"
+                  alt="Motorola Advisor pager displaying a message"
+                  width={400}
+                  height={400}
+                  className="max-w-[400px] w-full object-contain"
+                  sizes="(max-width: 768px) 100vw, 400px"
+                />
               </FadeIn>
               <FadeIn delay={0.1}>
                 <div>
@@ -389,9 +316,16 @@ export function ApproachContent() {
         <section id="approach-05" className="bg-shadow px-6 py-28 md:px-12 md:py-40">
           <div className="mx-auto max-w-6xl">
             <FadeIn>
-              <div className="grid gap-12 md:grid-cols-[1.2fr_1fr] md:items-start md:gap-20">
-                {/* Ambient carousel */}
-                <InspoCarousel />
+              <div className="grid gap-12 md:grid-cols-[1.2fr_1fr] md:items-center md:gap-20">
+                <div className="relative aspect-[16/9] overflow-hidden rounded-xl shadow-[0_24px_80px_-12px_rgba(0,0,0,0.6),0_8px_24px_-8px_rgba(0,0,0,0.4)]">
+                  <Image
+                    src="/approach/inspiration-sketch.png"
+                    alt="Pigeon concept sketch showing isometric view of the device with mode buttons and speaker grille"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 55vw"
+                  />
+                </div>
 
                 <div>
                   <SectionNumber n="05" />
@@ -426,15 +360,14 @@ export function ApproachContent() {
                     Designed with intent.
                   </h2>
                   <p className="mt-6 text-[14px] leading-[1.9] text-asphalt/75">
-                    Pigeon has a companion app for users to connect and personalize
-                    their device. The device has four modes that filter
-                    notifications differently &mdash; while priority contacts can
-                    always reach you, no matter the mode.
+                    Pigeon&rsquo;s mechanical and electrical components were
+                    designed in house. The device is optimized for bluetooth
+                    range, speed and battery life.
                   </p>
-                  <p className="mt-4 border-l-2 border-signal-orange/50 pl-4 text-[14px] font-medium leading-[1.9] text-shadow/85">
-                    We want people to spend as little time in our app as possible
-                    &mdash; but when they&rsquo;re here, every interaction will feel
-                    designed and delightful.
+                  <p className="mt-4 text-[14px] leading-[1.9] text-asphalt/75">
+                    We want you to leave the device out on your desk or the
+                    table. Every component was built intentionally for your
+                    enjoyment and fidgetability.
                   </p>
                 </div>
               </FadeIn>
@@ -453,48 +386,12 @@ export function ApproachContent() {
           </div>
         </section>
 
-        {/* Designed for Utility */}
-        <section id="approach-07" className="bg-shadow px-6 py-28 md:px-12 md:py-40">
-          <div className="mx-auto max-w-6xl">
-            <div className="grid gap-12 md:grid-cols-[1.1fr_1fr] md:items-center md:gap-20">
-              <FadeIn>
-                <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-cloud shadow-[0_24px_80px_-12px_rgba(0,0,0,0.6),0_8px_24px_-8px_rgba(0,0,0,0.4)]">
-                  <Image
-                    src="/approach/schematic.png"
-                    alt="Pigeon Smart Pager KiCad schematic — Visual Feedback subsystem"
-                    fill
-                    className="object-contain"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                </div>
-              </FadeIn>
-              <FadeIn delay={0.15}>
-                <div>
-                  <SectionNumber n="07" />
-                  <h2 className="font-display text-[clamp(1.6rem,3.5vw,2.6rem)] font-bold leading-[1.2] text-cloud/90">
-                    Designed for utility.
-                  </h2>
-                  <p className="mt-6 text-[14px] leading-[1.9] text-concrete/60">
-                    Pigeon&rsquo;s mechanical and electrical components were
-                    designed in house. The device is optimized for bluetooth
-                    range, speed and battery life.
-                  </p>
-                  <p className="mt-4 text-[14px] leading-[1.9] text-concrete/60">
-                    We want you to leave the device out on your desk or the
-                    table. Every component was built intentionally for your
-                    enjoyment and fidgetability.
-                  </p>
-                </div>
-              </FadeIn>
-            </div>
-          </div>
-        </section>
 
         {/* The Team */}
-        <section id="approach-08" className="bg-shadow px-6 py-28 md:px-12 md:py-40">
+        <section id="approach-07" className="bg-shadow px-6 py-28 md:px-12 md:py-40">
           <div className="mx-auto max-w-6xl">
             <FadeIn>
-              <SectionNumber n="08" />
+              <SectionNumber n="07" />
               <h2 className="font-display text-[clamp(1.6rem,3.5vw,2.6rem)] font-bold leading-[1.2] text-cloud/90">
                 The team behind Pigeon.
               </h2>
@@ -505,6 +402,15 @@ export function ApproachContent() {
             <div className="mt-16 grid gap-12 md:grid-cols-3 md:gap-16">
               <FadeIn delay={0.1}>
                 <div>
+                  <div className="mb-5 h-28 w-28 overflow-hidden rounded-full">
+                    <Image
+                      src="/approach/team-hunter.png"
+                      alt="Hunter Colleran"
+                      width={224}
+                      height={224}
+                      className="h-full w-full object-cover object-top"
+                    />
+                  </div>
                   <p className="font-display text-lg font-bold text-cloud/90">Hunter Colleran</p>
                   <p className="mt-1 font-mono text-[10px] tracking-[0.2em] uppercase text-signal-orange/60">
                     CEO, Hardware &amp; Engineering
@@ -516,6 +422,15 @@ export function ApproachContent() {
               </FadeIn>
               <FadeIn delay={0.2}>
                 <div>
+                  <div className="mb-5 h-28 w-28 overflow-hidden rounded-full">
+                    <Image
+                      src="/approach/team-grant.png"
+                      alt="Grant Taylor"
+                      width={112}
+                      height={112}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
                   <p className="font-display text-lg font-bold text-cloud/90">Grant Taylor</p>
                   <p className="mt-1 font-mono text-[10px] tracking-[0.2em] uppercase text-signal-orange/60">
                     Cofounder, Industrial Design &amp; Brand
@@ -527,6 +442,15 @@ export function ApproachContent() {
               </FadeIn>
               <FadeIn delay={0.3}>
                 <div>
+                  <div className="mb-5 h-28 w-28 overflow-hidden rounded-full">
+                    <Image
+                      src="/approach/team-jack.png"
+                      alt="Jack Dimond"
+                      width={112}
+                      height={112}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
                   <p className="font-display text-lg font-bold text-cloud/90">Jack Dimond</p>
                   <p className="mt-1 font-mono text-[10px] tracking-[0.2em] uppercase text-signal-orange/60">
                     Design, Storytelling &amp; Animation
