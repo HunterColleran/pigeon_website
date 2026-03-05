@@ -40,10 +40,10 @@ function FadeIn({
 }
 
 const INSPO_IMAGES = [
-  { src: "/approach/device-braun-recorder.png", label: "Braun T3 Pocket Radio" },
+  { src: "/approach/device-braun-recorder.png", label: "Braun Mach 2" },
   { src: "/approach/device-sony-walkman.png", label: "Sony Walkman" },
   { src: "/approach/device-gameboy.png", label: "Nintendo Game Boy" },
-  { src: "/approach/device-rabbit-r1.png", label: "Rabbit R1" },
+  { src: "/approach/device-rabbit-r1-v2.png", label: "Rabbit R1" },
   { src: "/approach/device-ipod.png", label: "Apple iPod" },
   { src: "/approach/device-blackberry.png", label: "BlackBerry" },
   { src: "/approach/device-psone.png", label: "Sony PSone" },
