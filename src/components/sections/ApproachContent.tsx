@@ -39,9 +39,54 @@ function FadeIn({
   );
 }
 
-function SectionNumber({ n, light = false }: { n: string; light?: boolean }) {
+function StickyPhoto({
+  children,
+  className = "",
+  baseRotate = 0,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  baseRotate?: number;
+}) {
+  const [wiggling, setWiggling] = useState(false);
+  const constraintsRef = useRef<HTMLDivElement>(null);
+
   return (
-    <span className={`mb-6 block font-mono text-[10px] tracking-[0.25em] uppercase ${light ? "text-asphalt/40" : "text-concrete/30"}`}>
+    <div ref={constraintsRef} className={className}>
+      <motion.div
+        drag
+        dragConstraints={constraintsRef}
+        dragElastic={0.15}
+        dragTransition={{ bounceStiffness: 400, bounceDamping: 20 }}
+        whileTap={{ scale: 1.03 }}
+        onTap={() => {
+          setWiggling(true);
+          setTimeout(() => setWiggling(false), 500);
+        }}
+        animate={
+          wiggling
+            ? {
+                rotate: [baseRotate, baseRotate + 3, baseRotate - 3, baseRotate + 1.5, baseRotate],
+              }
+            : { rotate: baseRotate }
+        }
+        transition={
+          wiggling
+            ? { duration: 0.5, ease: "easeInOut" }
+            : { type: "spring", stiffness: 300, damping: 20 }
+        }
+        className="cursor-grab overflow-hidden rounded-xl active:cursor-grabbing"
+        style={{ willChange: "transform" }}
+      >
+        {children}
+      </motion.div>
+    </div>
+  );
+}
+
+function SectionNumber({ n }: { n: string }) {
+  return (
+    <span className="mb-6 block font-mono text-[10px] tracking-[0.25em] uppercase text-signal-orange">
       {n}
     </span>
   );
@@ -54,8 +99,6 @@ const SECTION_IDS = [
   "approach-03",
   "approach-04",
   "approach-05",
-  "approach-06",
-  "approach-07",
 ];
 
 function SectionDotNav() {
@@ -131,83 +174,183 @@ export function ApproachContent() {
       <ScrollProgress />
       <SectionDotNav />
       <main>
-        {/* ── 01 · Hero — stark, minimal, full-bleed image ── */}
-        <section id="approach-01" className="relative h-[70vh] min-h-[480px] overflow-hidden bg-shadow">
-          <Image
-            src="/approach/hero-pigeons.png"
-            alt="Pigeons perched on a wire above a New York City intersection"
-            fill
-            className="object-cover opacity-40"
-            priority
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-shadow via-shadow/40 to-transparent" />
-          <div className="relative z-10 flex h-full flex-col justify-end px-6 pb-16 md:px-12 md:pb-24">
-            <motion.div className="mx-auto w-full max-w-6xl"
-              initial={reduced ? false : { opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-            >
-              <p className="mb-4 font-mono text-[10px] tracking-[0.25em] uppercase text-signal-orange">
-                Pigeon Group
-              </p>
-              <h1 className="max-w-3xl font-display text-[clamp(2.2rem,6vw,4.5rem)] font-bold leading-[1.05] text-cloud">
-                Our Approach
+        {/* ── 01 · Our Approach — typographic hero with text-clip image ── */}
+        <section id="approach-01" className="relative overflow-hidden bg-shadow px-6 py-28 md:px-12 md:py-40">
+          <div className="mx-auto max-w-6xl">
+            <FadeIn>
+              <SectionNumber n="01" />
+            </FadeIn>
+            <FadeIn delay={0.1}>
+              <h1 className="font-display text-[clamp(4rem,10vw,10rem)] font-bold leading-[0.95] tracking-tight text-signal-orange">
+                Our
+                <br />
+                Approach
               </h1>
-              <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-concrete/60">
-                We build tools that help people step away from screens and
-                return their attention to the world around them.
-              </p>
-            </motion.div>
+            </FadeIn>
+            <FadeIn delay={0.25}>
+              <div className="mt-10 grid gap-8 md:grid-cols-2 md:gap-16">
+                <p className="max-w-lg text-[14px] leading-[1.9] text-concrete/60">
+                  Instead of replacing your phone or installing software that locks it down or makes it worse, we&rsquo;re building a single-purpose device that let&rsquo;s you leave your phone behind while staying connected.
+                </p>
+                <p className="max-w-lg text-[14px] leading-[1.9] text-concrete/60">
+                  The Pigeon quietly filters the noise, hardware creates a clear
+                  boundary, and your attention stays where it belongs
+                  &mdash; with your work, your people, and your life.
+                </p>
+              </div>
+            </FadeIn>
           </div>
         </section>
 
-        {/* ── 02 · Separation — bordered card manifesto with background image ── */}
-        <section id="approach-02" className="relative overflow-hidden bg-shadow">
+        <div className="h-[3px] w-full bg-signal-orange" />
+
+        {/* ── Designed with Intent ── */}
+        <section id="approach-02" className="relative bg-cloud px-6 py-28 md:px-12 md:py-40">
+          <div className="relative mx-auto max-w-6xl" style={{ minHeight: "clamp(500px, 55vw, 700px)" }}>
+            {/* Center text — absolute centered */}
+            <div className="pointer-events-none absolute inset-0 z-40 flex items-center justify-center">
+              <FadeIn>
+                <div className="pointer-events-auto rounded-2xl bg-cloud/80 px-10 py-8 text-center shadow-[0_8px_40px_-8px_rgba(0,0,0,0.1)] ring-1 ring-shadow/[0.06] backdrop-blur-md">
+                  <SectionNumber n="02" />
+                  <h2 className="font-display text-[clamp(1.8rem,4vw,3rem)] font-bold leading-[1.15] text-shadow">
+                    Designed with intent, by us.
+                  </h2>
+                  <p className="mt-4 max-w-lg text-[14px] leading-[1.9] text-asphalt/75">
+                    Pigeon&rsquo;s electrical, mechanical, and firmware components were designed entirely in house.
+                  </p>
+                </div>
+              </FadeIn>
+            </div>
+
+            {/* Image 1 — 2D sketches, top-left */}
+            <StickyPhoto
+              className="absolute left-0 top-0 z-10 w-[28%]"
+              baseRotate={-3}
+            >
+              <Image
+                src="/approach/2d-sketches.png"
+                alt="Pigeon 2D dimensioned sketches showing front and back views with component layout and MagSafe ring"
+                width={600}
+                height={800}
+                className="pointer-events-none w-full shadow-[0_16px_60px_-12px_rgba(0,0,0,0.18)]"
+                sizes="(max-width: 768px) 28vw, 200px"
+              />
+            </StickyPhoto>
+
+            {/* Image 2 — inspiration sketch, top-right */}
+            <StickyPhoto
+              className="absolute right-[2%] top-[2%] z-20 w-[30%]"
+              baseRotate={2.5}
+            >
+              <Image
+                src="/approach/inspiration-sketch.png"
+                alt="Pigeon concept sketch showing isometric view of the device with mode buttons and speaker grille"
+                width={480}
+                height={360}
+                className="pointer-events-none aspect-[4/3] w-full object-cover shadow-[0_20px_70px_-12px_rgba(0,0,0,0.2)]"
+                sizes="(max-width: 768px) 28vw, 220px"
+              />
+            </StickyPhoto>
+
+            {/* Image 3 — MagSafe concept, bottom-right */}
+            <StickyPhoto
+              className="absolute bottom-[2%] right-[5%] z-30 w-[28%]"
+              baseRotate={2}
+            >
+              <Image
+                src="/concept-sketch-alt.png"
+                alt="Pigeon concept sketch showing MagSafe ring on the back of the device"
+                width={480}
+                height={360}
+                className="pointer-events-none aspect-[4/3] w-full object-cover shadow-[0_20px_70px_-12px_rgba(0,0,0,0.2)]"
+                sizes="(max-width: 768px) 28vw, 200px"
+              />
+            </StickyPhoto>
+
+            {/* Image 4 — concept sketches, bottom-left */}
+            <StickyPhoto
+              className="absolute bottom-[0%] left-[3%] z-30 w-[30%]"
+              baseRotate={-1.5}
+            >
+              <Image
+                src="/approach/concept-sketches.png"
+                alt="Pigeon concept sketches showing multiple views with annotations"
+                width={480}
+                height={360}
+                className="pointer-events-none aspect-[4/3] w-full object-cover shadow-[0_20px_70px_-12px_rgba(0,0,0,0.2)]"
+                sizes="(max-width: 768px) 28vw, 220px"
+              />
+            </StickyPhoto>
+
+            {/* Fact labels — positioned in clear gaps */}
+            <StickyPhoto className="absolute left-[22%] top-[-30px] z-50" baseRotate={0}>
+              <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-shadow/70">
+                MagSafe compatible.
+              </p>
+            </StickyPhoto>
+
+            <StickyPhoto className="absolute right-[0%] top-[42%] z-50 text-right" baseRotate={0}>
+              <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-shadow/70">
+                Compact &amp; pocketable.
+              </p>
+            </StickyPhoto>
+
+            <StickyPhoto className="absolute left-[calc(3%-80px)] bottom-[calc(28%+70px)] z-50" baseRotate={0}>
+              <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-shadow/70">
+                Designed to be fidgetable.
+              </p>
+            </StickyPhoto>
+
+            <StickyPhoto className="absolute bottom-[calc(2%-50px)] right-[calc(28%-100px)] z-50" baseRotate={0}>
+              <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-shadow/70">
+                Optimized for battery life<br />
+                &amp; bluetooth range.
+              </p>
+            </StickyPhoto>
+          </div>
+        </section>
+
+        {/* ── Inspiration — full-bleed background image with overlaid text ── */}
+        <section id="approach-03" className="relative min-h-[70vh] overflow-hidden bg-shadow">
           <Image
-            src="/approach/concept-sketches.png"
-            alt="Pigeon concept sketches showing multiple views with annotations"
+            src="/approach/inspiration-sketch.png"
+            alt="Pigeon concept sketch showing isometric view of the device with mode buttons and speaker grille"
             fill
-            className="object-cover opacity-15"
+            className="object-cover opacity-25"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-shadow/60 via-transparent to-shadow/60" />
-          <div className="relative z-10 h-[3px] w-full bg-signal-orange" />
-          <div className="px-6 py-28 md:px-12 md:py-40">
-            <div className="mx-auto max-w-6xl">
-              <div className="border border-cloud/[0.08] bg-shadow/90 px-8 py-12 backdrop-blur-sm shadow-[0_24px_80px_-12px_rgba(0,0,0,0.6),0_8px_24px_-8px_rgba(0,0,0,0.4)] md:px-14 md:py-16">
-                <FadeIn>
-                  <SectionNumber n="01" />
-                  <h2 className="font-display text-[clamp(1.6rem,3.5vw,2.6rem)] font-bold leading-[1.2] text-cloud/90">
-                    Leave your phone behind.
+          <div className="absolute inset-0 bg-gradient-to-r from-shadow via-shadow/80 to-transparent" />
+          <div className="relative z-10 flex min-h-[70vh] items-center px-6 py-28 md:px-12 md:py-40">
+            <div className="mx-auto w-full max-w-6xl">
+              <FadeIn>
+                <div className="max-w-xl">
+                  <SectionNumber n="03" />
+
+                  <h2 className="font-display text-[clamp(1.8rem,4vw,3rem)] font-bold leading-[1.15] text-cloud/90">
+                    Inspiration
                   </h2>
-                </FadeIn>
-                <FadeIn delay={0.1}>
-                  <div className="mt-8 grid gap-8 md:grid-cols-2 md:gap-16">
-                    <div className="flex flex-col gap-4 text-[14px] leading-[1.9] text-concrete/60">
-                      <p>
-                        Instead of replacing your phone or installing software that locks it down or makes it worse, we&rsquo;re building a single-purpose device that let&rsquo;s you leave your phone behind while staying connected.
-                      </p>
-                    </div>
-                    <p className="text-[14px] leading-[1.9] text-concrete/60">
-                      The Pigeon quietly filters the noise, hardware creates a clear
-                      boundary, and your attention stays where it belongs
-                      &mdash; with your work, your people, and your life.
-                    </p>
-                  </div>
-                </FadeIn>
-              </div>
+                  <p className="mt-8 text-[15px] leading-[2] text-concrete/65">
+                    Pigeon draws from both modern premium hardware and the
+                    retro-futurism of the late 20th century &mdash; devices
+                    designed with texture, usefulness, and optimism.
+                  </p>
+                  <p className="mt-5 text-[15px] leading-[2] text-concrete/65">
+                    We are building hardware people want to
+                    hold and look at, with materials and form that stand apart
+                    from the smooth, featureless slabs we carry today.
+                  </p>
+                </div>
+              </FadeIn>
             </div>
           </div>
         </section>
 
-        {/* ── 04 · Pager + MagSafe — large centered showcase ── */}
-        <section id="approach-03" className="bg-cloud px-6 py-28 md:px-12 md:py-40">
+        {/* ── Pager — large centered showcase ── */}
+        <section id="approach-04" className="bg-cloud px-6 py-28 md:px-12 md:py-40">
           <div className="mx-auto max-w-6xl">
-            {/* Why a Modern Pager — centered image hero with text below */}
             <FadeIn>
               <div className="flex flex-col items-center text-center">
-                <SectionNumber n="02" light />
+                <SectionNumber n="04" />
                 <h2 className="font-display text-[clamp(1.8rem,4vw,3rem)] font-bold leading-[1.15] text-shadow">
                   Why a pager?
                 </h2>
@@ -240,138 +383,17 @@ export function ApproachContent() {
           </div>
         </section>
 
-        {/* ── Inspiration — full-bleed background image with overlaid text ── */}
-        <section id="approach-04" className="relative min-h-[70vh] overflow-hidden bg-shadow">
-          <Image
-            src="/approach/inspiration-sketch.png"
-            alt="Pigeon concept sketch showing isometric view of the device with mode buttons and speaker grille"
-            fill
-            className="object-cover opacity-25"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-shadow via-shadow/80 to-transparent" />
-          <div className="relative z-10 flex min-h-[70vh] items-center px-6 py-28 md:px-12 md:py-40">
-            <div className="mx-auto w-full max-w-6xl">
-              <FadeIn>
-                <div className="max-w-xl">
-                  <SectionNumber n="03" />
-                  <h2 className="font-display text-[clamp(1.8rem,4vw,3rem)] font-bold leading-[1.15] text-cloud/90">
-                    Inspiration
-                  </h2>
-                  <p className="mt-8 text-[15px] leading-[2] text-concrete/65">
-                    Pigeon draws from both modern premium hardware and the
-                    retro-futurism of the late 20th century &mdash; devices
-                    designed with texture, usefulness, and optimism.
-                  </p>
-                  <p className="mt-5 text-[15px] leading-[2] text-concrete/65">
-                    We are building hardware people want to
-                    hold and look at, with materials and form that stand apart
-                    from the smooth, featureless slabs we carry today.
-                  </p>
-                </div>
-              </FadeIn>
-            </div>
-          </div>
-        </section>
-
-        {/* ── MagSafe — narrow asymmetric layout ── */}
+        {/* ── 07 · The Team — staggered offset cards ── */}
         <section id="approach-05" className="bg-shadow px-6 py-28 md:px-12 md:py-40">
           <div className="mx-auto max-w-6xl">
-            <div className="grid gap-10 md:grid-cols-[2fr_3fr] md:items-center md:gap-16">
-              <FadeIn>
-                <div>
-                  <SectionNumber n="04" />
-                  <h2 className="font-display text-[clamp(1.4rem,3vw,2.2rem)] font-bold leading-[1.2] text-cloud/90">
-                    Why MagSafe?
-                  </h2>
-                  <p className="mt-5 text-[14px] leading-[1.9] text-concrete/60">
-                    MagSafe lets us design a compact,
-                    pocketable device that fits naturally into existing habits.
-                  </p>
-                  <p className="mt-4 text-[14px] leading-[1.9] text-concrete/60">
-                    Most of the time, the Pigeon sits snug on the back of your phone, and when it&rsquo;s time to be focused or present, you detach the Pigeon and leave your phone behind.
-                  </p>
-                </div>
-              </FadeIn>
-              <FadeIn delay={0.1}>
-                <div className="relative aspect-[4/3] overflow-hidden rounded-xl shadow-[0_24px_80px_-12px_rgba(0,0,0,0.15),0_8px_24px_-8px_rgba(0,0,0,0.1)]">
-                  <Image
-                    src="/concept-sketch-alt.png"
-                    alt="Pigeon concept sketch showing MagSafe ring on the back of the device"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 60vw"
-                  />
-                </div>
-              </FadeIn>
-            </div>
-          </div>
-        </section>
-
-        {/* ── Designed with Intent — blueprint / technical drawing feel ── */}
-        <section id="approach-06" className="bg-cloud px-6 py-28 md:px-12 md:py-40">
-          <div className="mx-auto max-w-6xl">
             <FadeIn>
-              <SectionNumber n="05" light />
-              <h2 className="font-display text-[clamp(1.8rem,4vw,3rem)] font-bold leading-[1.15] text-shadow">
-                Designed with intent.
-              </h2>
-            </FadeIn>
-            <div className="mt-14 grid gap-12 md:grid-cols-[1.2fr_1fr] md:items-start md:gap-16">
-              <FadeIn delay={0.15}>
-                <div className="border border-shadow/[0.06] p-4 md:p-6">
-                  <Image
-                    src="/approach/2d-sketches.png"
-                    alt="Pigeon 2D dimensioned sketches showing front and back views with component layout and MagSafe ring"
-                    width={600}
-                    height={800}
-                    className="w-full"
-                    sizes="(max-width: 768px) 100vw, 55vw"
-                  />
-                </div>
-              </FadeIn>
-              <FadeIn delay={0.3}>
-                <div className="flex flex-col gap-8">
-                  <div className="border-t border-shadow/[0.08] pt-5">
-                    <p className="mb-2 font-mono text-[10px] tracking-[0.2em] uppercase text-asphalt/40">
-                      Engineering
-                    </p>
-                    <p className="text-[14px] leading-[1.9] text-asphalt/75">
-                      Mechanical and electrical components designed in house. Optimized for bluetooth range, speed and battery life.
-                    </p>
-                  </div>
-                  <div className="border-t border-shadow/[0.08] pt-5">
-                    <p className="mb-2 font-mono text-[10px] tracking-[0.2em] uppercase text-asphalt/40">
-                      Form Factor
-                    </p>
-                    <p className="text-[14px] leading-[1.9] text-asphalt/75">
-                      54 &times; 89 &times; 9.5mm. Under 50 grams. Designed to sit on your desk, live in your pocket, or snap to the back of your phone.
-                    </p>
-                  </div>
-                  <div className="border-t border-shadow/[0.08] pt-5">
-                    <p className="mb-2 font-mono text-[10px] tracking-[0.2em] uppercase text-asphalt/40">
-                      Intention
-                    </p>
-                    <p className="text-[14px] leading-[1.9] text-asphalt/75">
-                      Every component built intentionally for your enjoyment and fidgetability. Hardware you want to pick up.
-                    </p>
-                  </div>
-                </div>
-              </FadeIn>
-            </div>
-          </div>
-        </section>
+              <SectionNumber n="05" />
 
-        {/* ── 07 · The Team — staggered offset cards ── */}
-        <section id="approach-07" className="bg-shadow px-6 py-28 md:px-12 md:py-40">
-          <div className="mx-auto max-w-6xl">
-            <FadeIn>
-              <SectionNumber n="06" />
               <h2 className="font-display text-[clamp(1.6rem,3.5vw,2.6rem)] font-bold leading-[1.2] text-cloud/90">
                 The team behind Pigeon.
               </h2>
               <p className="mt-4 max-w-xl text-[14px] leading-[1.9] text-concrete/60">
-                A small team building something we believe in.
+                We build tools that help people step away from screens and return their attention to the world around them.
               </p>
             </FadeIn>
             <div className="mt-16 grid gap-x-12 gap-y-16 md:grid-cols-3 md:gap-x-16">

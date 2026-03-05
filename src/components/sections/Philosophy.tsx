@@ -52,7 +52,7 @@ export function Philosophy() {
                 animate={inView ? { opacity: 1, y: 0 } : undefined}
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               >
-                Why now?
+                Take back your time.
               </motion.p>
 
               {/* Right — body */}

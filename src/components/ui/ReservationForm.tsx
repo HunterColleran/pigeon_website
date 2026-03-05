@@ -4,7 +4,6 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { CountUp } from "@/components/ui/CountUp";
-import Link from "next/link";
 
 type State =
   | { step: "form" }
@@ -167,25 +166,14 @@ export function ReservationForm() {
               duration: 0.5,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="flex flex-col gap-3"
+            className="flex flex-col gap-2"
           >
-            <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-asphalt/40">
-              Reservation confirmed
+            <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-signal-orange">
+              Reservation Confirmed
             </p>
-            <p className="font-display text-5xl font-bold text-shadow md:text-6xl">
-              #<CountUp target={state.reservationNumber} />
+            <p className="font-display text-lg font-bold text-shadow">
+              You&rsquo;re number <span className="text-signal-orange">#<CountUp target={state.reservationNumber + 200} /></span> in line.
             </p>
-            {!state.isNew && (
-              <p className="font-mono text-[11px] text-asphalt/50">
-                Already reserved &mdash; here&rsquo;s your spot.
-              </p>
-            )}
-            <Link
-              href="/letter"
-              className="mt-3 font-mono text-[11px] tracking-[0.15em] text-signal-orange transition-colors duration-300 hover:text-signal-orange/70"
-            >
-              Read our letter &rarr;
-            </Link>
           </motion.div>
         )}
       </AnimatePresence>

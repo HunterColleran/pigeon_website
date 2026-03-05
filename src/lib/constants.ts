@@ -14,5 +14,5 @@ export const SPECS = [
   { label: "Battery", value: "500 mAh rechargeable" },
   { label: "Attachment", value: "MagSafe compatible" },
   { label: "Charging", value: "USB-C" },
-  { label: "Target price", value: "$129" },
+  { label: "Price", value: "$129" },
 ] as const;
