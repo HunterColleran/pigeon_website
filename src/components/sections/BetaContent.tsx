@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { InteractiveDotGrid } from "@/components/ui/InteractiveDotGrid";
 import { BetaApplicationForm } from "@/components/ui/BetaApplicationForm";
 
 export function BetaContent() {
@@ -16,7 +15,6 @@ export function BetaContent() {
       <main>
         {/* Hero */}
         <section className="dot-grid relative flex h-[50vh] min-h-[360px] items-end overflow-hidden bg-shadow">
-          <InteractiveDotGrid />
           <div className="absolute inset-0 bg-gradient-to-t from-shadow via-shadow/60 to-transparent" />
           <div className="relative z-10 w-full px-6 pb-16 md:px-12 md:pb-20">
             <motion.div

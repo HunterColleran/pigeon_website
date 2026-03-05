@@ -9,7 +9,6 @@ import {
 } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { Button } from "@/components/ui/Button";
-import { InteractiveDotGrid } from "@/components/ui/InteractiveDotGrid";
 import Image from "next/image";
 
 export function Hero() {
@@ -36,14 +35,14 @@ export function Hero() {
     mouseY.set((e.clientY - rect.top) / rect.height);
   }
 
-  const slide = (delay: number) =>
+  const blurIn = (delay: number) =>
     reduced
       ? {}
       : {
-          initial: { opacity: 0, x: -40 },
-          animate: { opacity: 1, x: 0 },
+          initial: { opacity: 0.15, filter: "blur(24px)", scale: 1.25 },
+          animate: { opacity: 1, filter: "blur(0px)", scale: 1 },
           transition: {
-            duration: 0.9,
+            duration: 1.4,
             ease: [0.22, 1, 0.36, 1] as const,
             delay,
           },
@@ -73,15 +72,13 @@ export function Hero() {
         sizes="100vw"
         aria-hidden="true"
       />
-      <InteractiveDotGrid />
-
       <div className="relative z-10 flex min-h-dvh flex-col px-6 pb-8 pt-24 md:px-12 md:pb-12">
         {/* Title — vertically centered, left-aligned */}
         <div className="flex flex-1 items-center">
           <div className="flex flex-col">
             <motion.div style={reduced ? {} : { x: lookX, y: lookY }}>
               <motion.span
-                {...slide(0.3)}
+                {...blurIn(0.3)}
                 className="block font-display text-[clamp(4rem,17vw,14rem)] font-extrabold leading-[0.88] tracking-tight text-cloud"
               >
                 LOOK
@@ -89,7 +86,7 @@ export function Hero() {
             </motion.div>
             <motion.div style={reduced ? {} : { x: upX, y: upY }}>
               <motion.span
-                {...slide(0.55)}
+                {...blurIn(0.55)}
                 className="block font-display text-[clamp(4rem,17vw,14rem)] font-extrabold leading-[0.88] tracking-tight text-cloud"
               >
                 UP

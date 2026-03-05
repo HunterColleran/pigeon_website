@@ -4,14 +4,11 @@ import { SectionReveal } from "@/components/ui/SectionReveal";
 
 import { SpecTable } from "@/components/ui/SpecTable";
 import { ReservationForm } from "@/components/ui/ReservationForm";
-import { InteractiveDotGrid } from "@/components/ui/InteractiveDotGrid";
 import Image from "next/image";
 
 export function Product() {
   return (
     <section id="reserve" className="dot-grid-light relative overflow-hidden bg-cloud">
-      <InteractiveDotGrid light />
-
       <div className="relative z-10 px-6 py-16 md:px-12 md:py-24">
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-8 md:grid-cols-[1.1fr_1fr] md:items-start md:gap-12">

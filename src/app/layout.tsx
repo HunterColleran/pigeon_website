@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Syne, DM_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { SITE } from "@/lib/constants";
+import { GlobalDotGrid } from "@/components/ui/GlobalDotGrid";
 
 const syne = Syne({
   subsets: ["latin"],
@@ -75,7 +76,8 @@ export default function RootLayout({
       lang="en"
       className={`${syne.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
     >
-      <body className="bg-shadow text-cloud font-sans antialiased">
+      <body className="dot-grid bg-shadow text-cloud font-sans antialiased">
+        <GlobalDotGrid />
         {children}
       </body>
     </html>

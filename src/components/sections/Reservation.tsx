@@ -3,13 +3,10 @@
 import { SectionReveal } from "@/components/ui/SectionReveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ReservationForm } from "@/components/ui/ReservationForm";
-import { InteractiveDotGrid } from "@/components/ui/InteractiveDotGrid";
 
 export function Reservation() {
   return (
     <section id="reserve" className="dot-grid-light relative bg-cloud">
-      <InteractiveDotGrid light />
-
       <div className="relative z-10 px-6 py-28 md:px-12 md:py-40">
         <div className="mx-auto max-w-2xl">
           <SectionLabel number="03" light />
