@@ -39,6 +39,117 @@ function FadeIn({
   );
 }
 
+const INSPO_IMAGES = [
+  { src: "/approach/device-braun-recorder.png", label: "Braun T3 Pocket Radio" },
+  { src: "/approach/device-sony-walkman.png", label: "Sony Walkman" },
+  { src: "/approach/device-gameboy.png", label: "Nintendo Game Boy" },
+  { src: "/approach/device-rabbit-r1.png", label: "Rabbit R1" },
+  { src: "/approach/device-ipod.png", label: "Apple iPod" },
+  { src: "/approach/device-blackberry.png", label: "BlackBerry" },
+  { src: "/approach/device-psone.png", label: "Sony PSone" },
+  { src: "/approach/device-macro-keypad.png", label: "Macro Keypad" },
+  { src: "/approach/device-tp7.png", label: "Teenage Engineering TP-7" },
+  { src: "/approach/device-kodak-instamatic.png", label: "Kodak Instamatic" },
+];
+
+function InspoCarousel() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollStart = useRef(0);
+  const rafRef = useRef<number>(0);
+  const dragOffset = useRef(0);
+  const dragDecay = useRef(0);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    function tick() {
+      if (!el) return;
+      // Always scroll ambiently
+      el.scrollLeft += 0.5;
+      // Apply drag offset that decays back to 0
+      if (Math.abs(dragDecay.current) > 0.5) {
+        el.scrollLeft += dragDecay.current * 0.08;
+        dragDecay.current *= 0.95;
+      } else {
+        dragDecay.current = 0;
+      }
+      // Loop
+      if (el.scrollLeft >= el.scrollWidth / 2) {
+        el.scrollLeft = 0;
+      }
+      if (el.scrollLeft < 0) {
+        el.scrollLeft = el.scrollWidth / 2;
+      }
+      rafRef.current = requestAnimationFrame(tick);
+    }
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, []);
+
+  function onPointerDown(e: React.PointerEvent) {
+    isDragging.current = true;
+    startX.current = e.clientX;
+    scrollStart.current = scrollRef.current?.scrollLeft || 0;
+    dragOffset.current = 0;
+    dragDecay.current = 0;
+    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+  }
+
+  function onPointerMove(e: React.PointerEvent) {
+    if (!isDragging.current || !scrollRef.current) return;
+    const dx = e.clientX - startX.current;
+    dragOffset.current = -dx;
+    scrollRef.current.scrollLeft = scrollStart.current - dx * 0.3;
+  }
+
+  function onPointerUp() {
+    if (isDragging.current) {
+      dragDecay.current = dragOffset.current * 0.3;
+    }
+    isDragging.current = false;
+  }
+
+  return (
+    <div className="relative mt-16 overflow-hidden">
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-shadow to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-shadow to-transparent" />
+      <div
+        ref={scrollRef}
+        className="flex cursor-grab gap-6 overflow-hidden active:cursor-grabbing"
+        style={{ scrollbarWidth: "none" }}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerLeave={onPointerUp}
+      >
+        {[...INSPO_IMAGES, ...INSPO_IMAGES].map((img, i) => (
+          <div
+            key={`${img.label}-${i}`}
+            className="flex-none select-none"
+          >
+            <div className="relative h-[200px] w-[200px] overflow-hidden rounded-xl md:h-[260px] md:w-[260px]">
+              <Image
+                src={img.src}
+                alt={img.label}
+                fill
+                className="pointer-events-none object-cover"
+                sizes="260px"
+              />
+            </div>
+            <p className="mt-2 font-mono text-[9px] tracking-[0.15em] uppercase text-concrete/30">
+              {img.label}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function StickyPhoto({
   children,
   className = "",
@@ -75,7 +186,7 @@ function StickyPhoto({
             ? { duration: 0.5, ease: "easeInOut" }
             : { type: "spring", stiffness: 300, damping: 20 }
         }
-        className="cursor-grab overflow-hidden rounded-xl active:cursor-grabbing"
+        className="cursor-grab active:cursor-grabbing"
         style={{ willChange: "transform" }}
       >
         {children}
@@ -215,7 +326,7 @@ export function ApproachContent() {
                   <h2 className="font-display text-[clamp(1.8rem,4vw,3rem)] font-bold leading-[1.15] text-shadow">
                     Designed with intent, by us.
                   </h2>
-                  <p className="mt-4 max-w-lg text-[14px] leading-[1.9] text-asphalt/75">
+                  <p className="mx-auto mt-4 max-w-lg text-center text-[14px] leading-[1.9] text-asphalt/75">
                     Pigeon&rsquo;s electrical, mechanical, and firmware components were designed entirely in house.
                   </p>
                 </div>
@@ -232,7 +343,7 @@ export function ApproachContent() {
                 alt="Pigeon 2D dimensioned sketches showing front and back views with component layout and MagSafe ring"
                 width={600}
                 height={800}
-                className="pointer-events-none w-full shadow-[0_16px_60px_-12px_rgba(0,0,0,0.18)]"
+                className="pointer-events-none w-full rounded-xl shadow-[0_16px_60px_-12px_rgba(0,0,0,0.18)]"
                 sizes="(max-width: 768px) 28vw, 200px"
               />
             </StickyPhoto>
@@ -247,7 +358,7 @@ export function ApproachContent() {
                 alt="Pigeon concept sketch showing isometric view of the device with mode buttons and speaker grille"
                 width={480}
                 height={360}
-                className="pointer-events-none aspect-[4/3] w-full object-cover shadow-[0_20px_70px_-12px_rgba(0,0,0,0.2)]"
+                className="pointer-events-none aspect-[4/3] w-full rounded-xl object-cover shadow-[0_20px_70px_-12px_rgba(0,0,0,0.2)]"
                 sizes="(max-width: 768px) 28vw, 220px"
               />
             </StickyPhoto>
@@ -262,7 +373,7 @@ export function ApproachContent() {
                 alt="Pigeon concept sketch showing MagSafe ring on the back of the device"
                 width={480}
                 height={360}
-                className="pointer-events-none aspect-[4/3] w-full object-cover shadow-[0_20px_70px_-12px_rgba(0,0,0,0.2)]"
+                className="pointer-events-none aspect-[4/3] w-full rounded-xl object-cover shadow-[0_20px_70px_-12px_rgba(0,0,0,0.2)]"
                 sizes="(max-width: 768px) 28vw, 200px"
               />
             </StickyPhoto>
@@ -277,7 +388,7 @@ export function ApproachContent() {
                 alt="Pigeon concept sketches showing multiple views with annotations"
                 width={480}
                 height={360}
-                className="pointer-events-none aspect-[4/3] w-full object-cover shadow-[0_20px_70px_-12px_rgba(0,0,0,0.2)]"
+                className="pointer-events-none aspect-[4/3] w-full rounded-xl object-cover shadow-[0_20px_70px_-12px_rgba(0,0,0,0.2)]"
                 sizes="(max-width: 768px) 28vw, 220px"
               />
             </StickyPhoto>
@@ -341,12 +452,13 @@ export function ApproachContent() {
                   </p>
                 </div>
               </FadeIn>
+              <InspoCarousel />
             </div>
           </div>
         </section>
 
-        {/* ── Pager — large centered showcase ── */}
-        <section id="approach-04" className="bg-cloud px-6 py-28 md:px-12 md:py-40">
+        {/* ── Pager — messy collage showcase ── */}
+        <section id="approach-04" className="relative bg-cloud px-6 py-28 md:px-12 md:py-40">
           <div className="mx-auto max-w-6xl">
             <FadeIn>
               <div className="flex flex-col items-center text-center">
@@ -359,6 +471,7 @@ export function ApproachContent() {
                 </p>
               </div>
             </FadeIn>
+
             <FadeIn delay={0.15}>
               <div className="mt-14 grid gap-12 md:grid-cols-[1fr_1.2fr] md:items-center md:gap-16">
                 <div className="mx-auto max-w-[360px]">
